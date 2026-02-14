@@ -1,21 +1,60 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: oklch(14.1% 0.005 285.823);
+  --foreground: oklch(96.7% 0.001 286.375);
 }
 
-@theme inline {
+@theme {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-serif: "Bookman Old Style", serif;
+  --font-sans: "ChalkyThin", sans-serif;
+  --font-mono: "Consolas", monospace;
+  --font-chalk: "ChalkyThin", sans-serif;
+  --font-link: var(--font-chalk);
+  --text-base: 1.2rem;
+  --chalk-mask: url("/img/chalk_texture.png");
+  --color-link: var(--color-indigo-400);
+  --color-link-hover: var(--color-indigo-300);
+}
+
+@font-face {
+  font-family: Qonqueror;
+  font-style: normal;
+  font-weight: 200 700;
+  font-display: swap;
+  src: url("../public/fonts/qonqueror.regular.otf");
+}
+
+@font-face {
+  font-family: CoalhandLuke;
+  font-style: normal;
+  font-weight: 200 700;
+  font-display: swap;
+  src: url("../public/fonts/CoalhandLuke TRIAL.otf");
+}
+
+@font-face {
+  font-family: ChalkBoard;
+  font-style: normal;
+  font-weight: 200 700;
+  font-display: swap;
+  src: url("../public/fonts/chalk-board.regular.otf");
+}
+
+@font-face {
+  font-family: ChalkyThin;
+  font-style: normal;
+  font-weight: 200;
+  font-display: swap;
+  src: url("../public/fonts/ChalkyThin WIP3.otf");
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: oklch(14.1% 0.005 285.823);
+    --foreground: oklch(96.7% 0.001 286.375);
   }
 }
 
@@ -23,4 +62,130 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+}
+
+@layer components {
+  h1 {
+    font-size: var(--text-5xl);
+    font-family: var(--font-chalk);
+    color: var(--color-indigo-200);
+  }
+  h2 {
+    font-size: var(--text-4xl);
+    font-family: var(--font-chalk);
+    color: var(--color-green-200);
+  }
+  h3 {
+    font-size: var(--text-2xl);
+    font-family: var(--font-chalk);
+    color: var(--color-indigo-300);
+  }
+  h4 {
+    font-size: var(--text-2xl);
+    font-family: var(--font-chalk);
+    color: var(--color-green-300);
+  }
+  h5 {
+    font-size: var(--text-xl);
+    font-family: var(--font-chalk);
+    color: var(--color-indigo-200);
+  }
+  h6 {
+    font-size: var(--text-xl);
+    font-family: var(--font-chalk);
+    color: var(--color-green-200);
+  }
+  p {
+    font-size: var(--text-base);
+    font-family: var(--font-sans);
+    padding: calc(var(--spacing) * 2) 0;
+  }
+  blockquote {
+    font-family: var(--font-serif);
+    color: var(--color-green-100);
+    padding: 0 calc(var(--spacing) * 4);
+    margin-left: calc(var(--spacing) * 8);
+    border-left: 2px solid var(--color-emerald-600);
+    position: relative;
+    z-index: 1;
+  }
+  code {
+    font-family: var(--font-mono);
+    color: var(--color-indigo-200);
+    position: relative;
+    z-index: 1;
+    white-space: pre-wrap;
+    word-break: break-word;
+  }
+  code:not(:only-child) {
+    padding: var(--spacing) calc(var(--spacing) * 2);
+  }
+  code:not(:only-child):before, pre:has(code:only-child):before, blockquote:before {
+    content: "";
+    display: block;
+    position: absolute;
+    top: 0;
+    left: calc(var(--spacing) * 2);
+    bottom: 0;
+    right: 0;
+    z-index: -1;
+    background: var(--color-zinc-900);
+    border-radius: var(--radius-sm);
+    mask: var(--chalk-mask);
+  }
+  pre:has(code:only-child) {
+    padding: var(--spacing) calc(var(--spacing) * 4);
+    border-left: 2px solid var(--color-indigo-600);
+    position: relative;
+  }
+  a {
+    text-transform: uppercase;
+    position: relative;
+    padding: var(--spacing);
+    font-family: var(--font-link);
+    color: var(--color-link);
+    transition: color .3s;
+  }
+  a:hover {
+    color: var(--color-link-hover);
+  }
+
+  /*a:after {*/
+  /*  content: "";*/
+  /*  display: block;*/
+  /*  position: absolute;*/
+  /*  bottom: calc(var(--spacing) * (-1));*/
+  /*  left: 0;*/
+  /*  height: var(--spacing);*/
+  /*  width: 100%;*/
+  /*  background-color: var(--color-link);*/
+  /*  mask: url(/img/chalk_dash_center.png) 0 0 / auto .2em round;*/
+  /*}*/
+
+  ol, ul {
+    padding-left: calc(var(--spacing) * 4);
+  }
+  li:before {
+    content: "-";
+    font-family: var(--font-chalk);
+    padding-right: calc(var(--spacing) * 2);
+  }
+
+  /* Highlighting */
+  mark,
+  ::selection
+  /*::search-text,*/
+  /*::target-text */
+  {
+    color: var(--color-zinc-200)
+  }
+  ::selection {
+    background: var(--color-indigo-900);
+  }
+  /*::search-text {*/
+  /*  background: var(--color-emerald-600);*/
+  /*}*/
+  /*::target-text {*/
+  /*  background: var(--color-emerald-900);*/
+  /*}*/
 }
