@@ -20,30 +20,6 @@
 }
 
 @font-face {
-  font-family: Qonqueror;
-  font-style: normal;
-  font-weight: 200 700;
-  font-display: swap;
-  src: url("../public/fonts/qonqueror.regular.otf");
-}
-
-@font-face {
-  font-family: CoalhandLuke;
-  font-style: normal;
-  font-weight: 200 700;
-  font-display: swap;
-  src: url("../public/fonts/CoalhandLuke TRIAL.otf");
-}
-
-@font-face {
-  font-family: ChalkBoard;
-  font-style: normal;
-  font-weight: 200 700;
-  font-display: swap;
-  src: url("../public/fonts/chalk-board.regular.otf");
-}
-
-@font-face {
   font-family: ChalkyThin;
   font-style: normal;
   font-weight: 200;
