@@ -1,30 +1,3 @@
-
-# Jane Farley / Remi Ganth
-
-Jane Farley suffers from a split personality disorder. As far as she knows, she lives a perfectly normal, if slightly disappointing life, though can never seem to get enough sleep. Sometimes things also go missing or turn up in weird places she doesn’t remember putting them. One time she thinks she woke up somewhere she didn’t remember going, but that might just have been an oddly vivid dream.
-
-She spends most of her time working at the local tavern, usually helping in the kitchens, but on special occasions she puts on a bit of a show as a barista.
-
-In the evenings, she trains at the monastery on the nearby mountain. She was raised there after being abandoned by her parents as a baby. Sometimes, it feels like she’s nothing but a routine. Sometimes it feels like that’s the only thing keeping her together. They often let her stay the night, though she tries not to lean on their generosity too often.
-
-
-Remi Ganth also suffers from split personality disorder, though she's fully aware of the faded Jane Farley. She's been trained as an assassin by the very same monastery Jane goes to every evening. At the moment she's their most efficient, though she knows that position is tenuous at best. She knows there are others, though there's no real way to tell who. She just does what her master tells her to. She's not sure if she tried disobeying before, but she's also not sure how long she and Jane have been separate people.
-
-Her training was brutal and held no mercy for those that couldn't keep up: the Shadowfell isn't a place for children. She wonders why Jane hasn't questioned where so many of their comrades went. Their organisation is heard of only in the faintest whispers, floating on the wind after prominent and powerful figures expire unexpectedly. Like tales of the bogeyman, those who have heard feign deafness. She doesn't know where the jobs come from, all she has to do is remain competent, so she can keep the name to herself: Erebus
-
-
-### Erebus
-
-> The bogeyman in the dark, the creature lurking in the shadows out of sight.
-> A trained killing machine.
->
-> Efficient.
->
-> Ruthless.
->
-> The stuff of nightmares, I wake as night falls.
-
-
 # Muta Tityos
 
 ## Sed per viri esset

@@ -54,10 +54,10 @@ export default function RootTemplate({
       </div>
 
       <header className="row-1 col-start-1 col-end-4 relative p-2 flex justify-evenly items-center gap-8 h-16">
-        {/*<div className="border-b-2 border-indigo-800 absolute bottom-0 left-4 right-4"></div>*/}
+        <div className="h-1 bg-indigo-800 absolute bottom-0 left-4 right-4" style={{mask: "var(--chalk-dash)"}}></div>
         <ChalkLink scope={scope} href={'/'}>Home</ChalkLink>
         <ChalkLink scope={scope} href={'/bio'}>Bio</ChalkLink>
-        <ChalkLink scope={scope} href={'/education'}>Education</ChalkLink>
+        <ChalkLink scope={scope} href={'/lorem_ipsum'}>Lorem Ipsum</ChalkLink>
         <ChalkLink scope={scope} href={'/experience'}>Experience</ChalkLink>
       </header>
 
@@ -68,7 +68,7 @@ export default function RootTemplate({
       </ChalkEntrance>
 
       <footer className="row-3 col-start-1 col-end-4 relative p-2 flex justify-evenly items-center gap-8 h-16">
-        {/*<div className="border-b-2 border-indigo-800 absolute top-0 left-4 right-4"></div>*/}
+        <div className="h-1 bg-indigo-800 absolute top-0 left-4 right-4" style={{mask: "var(--chalk-dash)"}}></div>
         <div className="flex flex-row justify-center items-center">
           <GitHubIcon className="w-6 h-6 m-2  mr-1 text-white"/>
           <ChalkLink scope={scope} href="https://github.com/DNA386">/ DNA386</ChalkLink>

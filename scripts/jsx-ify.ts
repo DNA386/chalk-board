@@ -29,7 +29,7 @@ const converter = new showdown.Converter({
       extensions: [...bindings]
 })
 
-const allFiles = await files.walk("app")
+const allFiles = await files.walk("markdown")
 allFiles
   .filter((filename) => /\.md$/.test(filename))
   .map(async (filename: string) => {
@@ -37,7 +37,31 @@ allFiles
       const htmlContent = converter.makeHtml(mdContent)
 
       // Assume there's not multiple '.md's lying around in the file string...
-      const writeFile = filename.replace(/\.md$/, ".ts")
+      const writeFile = filename
+        .replace(/markdown/, "app")
+        .replace(/\.md$/, "/page.tsx")
       console.log("Saving", filename, "to", writeFile)
-      await files.write(writeFile, `export const htmlContent: string = \`${htmlContent}\``)
+
+      const component: string = `'use client'
+
+import Markdown from '@/components/Markdown'
+import { ChalkyScroll } from "@/components/ChalkTransition"
+
+
+const htmlContent: string = \`${htmlContent}\`
+
+
+export default function Page() {
+  return (
+    <div className="w-full h-full relative flex justify-center overflow-auto">
+      <main className="flex w-full max-w-3xl max-h-90% flex-col items-center justify-between sm:items-start">
+        <ChalkyScroll>
+          <Markdown html={htmlContent}></Markdown>
+        </ChalkyScroll>
+      </main>
+    </div>
+  )
+}`
+
+      await files.write(writeFile, component)
   })
