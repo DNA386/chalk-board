@@ -14,9 +14,15 @@
   --font-chalk: "ChalkyThin", sans-serif;
   --font-link: var(--font-chalk);
   --text-base: 1.2rem;
-  --chalk-mask: url("/img/chalk_texture.png");
+  --chalk-mask: url(/img/chalk_texture.png);
+  --chalk-dash: url(/img/chalk_dash_center.png) 0 0 / auto var(--spacing) round;
   --color-link: var(--color-indigo-400);
   --color-link-hover: var(--color-indigo-300);
+
+  /*  Cursors  */
+  --cursor-chalk: url(/img/chalk_cursor_w.png), auto;
+  --cursor-text: url(/img/chalk_cursor_text.png), auto;
+  --cursor-link: url(/img/chalk_cursor_v.png), auto;
 }
 
 @font-face {
@@ -38,9 +44,14 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+  cursor: var(--cursor-chalk);
 }
 
 @layer components {
+  h1, h2, h3, h4, h5, h6, p, blockquote, code {
+    cursor: var(--cursor-text);
+  }
+
   h1 {
     font-size: var(--text-5xl);
     font-family: var(--font-chalk);
@@ -121,6 +132,7 @@ body {
     font-family: var(--font-link);
     color: var(--color-link);
     transition: color .3s;
+    cursor: url(/img/chalk_cursor_v.png), auto;
   }
   a:hover {
     color: var(--color-link-hover);
@@ -135,7 +147,7 @@ body {
   /*  height: var(--spacing);*/
   /*  width: 100%;*/
   /*  background-color: var(--color-link);*/
-  /*  mask: url(/img/chalk_dash_center.png) 0 0 / auto .2em round;*/
+  /*  mask: var(--chalk-dash);*/
   /*}*/
 
   ol, ul {
