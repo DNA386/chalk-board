@@ -20,7 +20,7 @@ export default function Error({
   const chalkboard = useContext(ChalkBoardContext);
   return (
     <html lang="en">
-      <body className="bg-zinc-950 text-zinc-100 antialiased">
+      <body className="bg-background text-zinc-100 antialiased">
         <div className="w-full h-full relative flex justify-center font-sans">
           <main className="flex w-full max-w-3xl flex-col items-center justify-center py-32 px-16">
             <div className="text-green-300">Hmm...</div>

@@ -12,9 +12,9 @@ export default function RootLayout({children}: Readonly<{children: React.ReactNo
   return (
     <html lang="en">
       <body
-        className="bg-zinc-950 text-zinc-100 font-sans antialiased"
+        className="text-zinc-100 font-sans antialiased"
         style={{
-          background: "url(/img/board_texture_smaller.png), var(--color-zinc-950)",
+          background: "url(/img/board_texture_smaller.png), var(--color-background)",
           backgroundRepeat: "repeat",
         }}
       >
