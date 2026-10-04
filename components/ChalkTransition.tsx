@@ -1,7 +1,7 @@
 'use client'
 
 import Link, {LinkProps} from "next/link";
-import { useRouter } from "next/navigation"
+import {usePathname, useRouter} from "next/navigation"
 import { animate, useAnimate, motion, AnimationScope, HTMLMotionProps } from "motion/react"
 import React, { createContext } from "react"
 
@@ -10,23 +10,53 @@ export const ChalkBoardContext: React.Context<AnimationScope<React.ElementType>>
 export const ChalkSectionContext: React.Context<AnimationScope<React.ElementType>> = createContext({} as AnimationScope<React.ElementType>)
 
 
+export async function eraseBoard(scope: React.RefObject<any>) {
+  await animate([
+    [scope.current, {mask: "URL('/img/mask_out_fast.gif') center no-repeat luminance"}, {duration: 0}],
+    // Add another animation while the mask gif plays
+    [scope.current, {opacity: 0.8}, {duration: 1}],
+    // Avoid accidentally flashing the mask again
+    [scope.current, {opacity: 0}, {duration: 0}],
+  ])
+}
+
+export function useEraseBoardThenNavigate() {
+  const router = useRouter()
+  const pathname = usePathname();
+
+  const eraseBoardThenNavigate = async (scope: React.RefObject<any>, url: string) => {
+    console.log("Begin nav", url)
+    if (pathname != url) {
+      await eraseBoard(scope)
+      router.push(url)
+      console.log("Pushed nav to router", url)
+    } else {
+      console.log("Already on this page!")
+    }
+  }
+  return eraseBoardThenNavigate
+}
+
+
 export function ChalkLink(
-  {scope, children, ...props}: {scope: React.RefObject<any>, children: React.ReactNode} & LinkProps,
+  {scope, isInternalNav = true, children, ...props}: {
+    scope: React.RefObject<any>,
+    children: React.ReactNode
+    isInternalNav?: boolean,
+  } & LinkProps,
 ) {
-  const router = useRouter();
+  const pathname = usePathname();
+
+  const eraseBoardThenNavigate = useEraseBoardThenNavigate()
+
   return (
     <div className="flex flex-col items-stretch w-fit my-2">
-      <Link {...props} onNavigate={async (e) => {
+      <Link {...props} className={isInternalNav && pathname == props.href ? 'underline' : ''} onNavigate={async (e) => {
         // Only executes during SPA navigation
-        e.preventDefault()
-        await animate([
-          [scope.current, {mask: "URL('/img/mask_out_fast.gif') center no-repeat luminance"}, {duration: 0}],
-          // Add another animation while the mask gif plays
-          [scope.current, {opacity: 0.8}, {duration: 1}],
-          // Avoid accidentally flashing the mask again
-          [scope.current, {opacity: 0}, {duration: 0}],
-        ])
-        router.push(props.href as string)
+        if (isInternalNav) {
+          e.preventDefault()
+          await eraseBoardThenNavigate(scope, props.href as string)
+        }
       }}>{children}</Link>
     </div>
   )
