@@ -29,8 +29,8 @@ const converter = new showdown.Converter({
       extensions: [...bindings]
 })
 
-const allFiles = await files.walk("markdown")
-allFiles
+const allPageFiles = await files.walk("markdown/pages")
+allPageFiles
   .filter((filename) => /\.md$/.test(filename))
   .map(async (filename: string) => {
       const mdContent = await files.read(filename)
@@ -39,9 +39,11 @@ allFiles
       // Assume there's not multiple '.md's lying around in the file string...
       const writeFile = filename
         .replace(/markdown/, "app")
+        .replace(/pages/, "")
         .replace(/\.md$/, "/page.tsx")
       console.log("Saving", filename, "to", writeFile)
 
+      // Build a component which renders the markdown content
       const component: string = `'use client'
 
 import Markdown from '@/components/Markdown'
@@ -54,7 +56,7 @@ const htmlContent: string = \`${htmlContent}\`
 export default function Page() {
   return (
     <div className="w-full h-full relative flex justify-center overflow-auto">
-      <main className="flex w-full max-w-3xl max-h-90% flex-col items-center justify-between sm:items-start">
+      <main className="flex w-full max-w-4xl max-h-90% flex-col items-center justify-between sm:items-start">
         <ChalkyScroll>
           <Markdown html={htmlContent}></Markdown>
         </ChalkyScroll>
@@ -62,6 +64,43 @@ export default function Page() {
     </div>
   )
 }`
-
       await files.write(writeFile, component)
+  })
+
+
+const allMindmapFiles = await files.walk("markdown/mindmap")
+// const PAGES: {[k: string]: {writeFile: string, filename: string}} = {}
+allMindmapFiles
+  .filter((filename) => /\.md$/.test(filename))
+  .map(async (filename: string) => {
+    const mdContent = await files.read(filename)
+    const htmlContent = converter.makeHtml(mdContent)
+
+    // Assume there's not multiple '.md's lying around in the file string...
+    const writeFile = filename
+      .replace(/markdown/, "app")
+      .replace(/\.md$/, ".tsx")
+    console.log("Saving", filename, "to", writeFile)
+
+    // const displayName = filename.split("/")[-1].replace(/\.md$/, '')
+    // PAGES[displayName] = {writeFile, filename}
+
+    // Build a component which renders the markdown content
+    const component: string = `'use client'
+
+import Markdown from '@/components/Markdown'
+import { ChalkyScroll } from "@/components/ChalkTransition"
+
+
+const htmlContent: string = \`${htmlContent}\`
+
+
+export default function Page() {
+  return (
+    <div className="w-full h-full relative flex justify-center items-center overflow-visible">
+        <Markdown html={htmlContent}></Markdown>
+    </div>
+  )
+}`
+    await files.write(writeFile, component)
   })
