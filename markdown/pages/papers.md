@@ -1,10 +1,10 @@
 # Papers
 
-## Categorifications of Cluster Varieties
+**Categorifications of Cluster Varieties**
 C. Krawchuk
 [https://doi.org/10.17863/CAM.112695](https://doi.org/10.17863/CAM.112695)
 
-## A gluing operation for dimer quivers
+**A gluing operation for dimer quivers**
 K. Baur, C. Krawchuk
 [https://arxiv.org/abs/2402.02784](https://arxiv.org/abs/2402.02784)
 
@@ -22,3 +22,7 @@ C. Krawchuk, N. Rampersad
 ## Bounds on Decorated Sweep Covers in Tree Posets
 B. A. Wilson, C. Krawchuk
 [https://arxiv.org/abs/2604.03165](https://arxiv.org/abs/2604.03165)
+
+
+**I can't decide how to format these.**
+T. Duneau, 2026

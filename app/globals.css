@@ -11,8 +11,8 @@
   --font-serif: "Bookman Old Style", serif;
   --font-sans: "Xarovv", "ChalkyThin", sans-serif;
   --font-mono: "Consolas", monospace;
-  --font-chalk: "Caveat", "ChalkyThin", sans-serif;
-  --font-link: var(--font-chalk);
+  --font-chalk: "qonqueror", "ChalkyThin", sans-serif;
+  --font-link: "Caveat", sans-serif;
   --chalk-mask: url(/img/chalk_texture.png);
   --chalk-dash: url(/img/chalk_dash_center.png) 0 0 / auto var(--spacing) round;
   --color-link: var(--color-indigo-400);
@@ -48,6 +48,12 @@
   font-weight: 400;
   font-style: normal;
   src: url("../public/fonts/xarrovv.regular.otf");
+}
+@font-face {
+  font-family: "qonqueror";
+  font-weight: 400;
+  font-style: normal;
+  src: url("../public/fonts/qonqueror.regular.otf");
 }
 
 @media (prefers-color-scheme: dark) {
