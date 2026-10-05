@@ -26,7 +26,7 @@ This file contains some consts that you can/should modify:
 - `SECTIONS`: This defines the sections that appear in the mindmap. 
   By default, these will be filled into the grid automatically, but you can also speficy particular positions via the `row-n` and `col-n` properties.
   For each component, add an import of the compiled markdown file (which must be under `markdown/mindmap`).
-  The order in the `SECTIONS` dict will affect the automatic placement of the sections.
+  The order in the `SECTIONS` array will affect the automatic placement of the sections.
   You should also specify how many grid blocks each component should take up via the `col-span-n` and `row-span-n` classes.
   Note that the heading component is built directly without markdown.
 

@@ -1,5 +1,4 @@
-### Recent Papers 
-(Either the content or title presumably needs updating)
+### Selected Papers 
 
 K. Baur, C. Krawchuk, 2024 [A gluing operation for dimer quivers](https://arxiv.org/abs/2402.02784)
 

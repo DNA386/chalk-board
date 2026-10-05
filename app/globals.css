@@ -9,11 +9,10 @@
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-serif: "Bookman Old Style", serif;
-  --font-sans: "ChalkyThin", sans-serif;
+  --font-sans: "Xarovv", "ChalkyThin", sans-serif;
   --font-mono: "Consolas", monospace;
-  --font-chalk: "ChalkyThin", sans-serif;
+  --font-chalk: "Caveat", "ChalkyThin", sans-serif;
   --font-link: var(--font-chalk);
-  --text-base: 1.2rem;
   --chalk-mask: url(/img/chalk_texture.png);
   --chalk-dash: url(/img/chalk_dash_center.png) 0 0 / auto var(--spacing) round;
   --color-link: var(--color-indigo-400);
@@ -32,12 +31,34 @@
   font-display: swap;
   src: url("../public/fonts/ChalkyThin WIP3.otf");
 }
+@font-face {
+   font-family: "Caveat";
+   font-weight: 400;
+   font-style: normal;
+   src: url("../public/fonts/Caveat-Regular.ttf");
+}
+@font-face {
+  font-family: "Caveat";
+  font-weight: 800;
+  font-style: normal;
+  src: url("../public/fonts/Caveat-Bold.ttf");
+}
+@font-face {
+  font-family: "Xarovv";
+  font-weight: 400;
+  font-style: normal;
+  src: url("../public/fonts/xarrovv.regular.otf");
+}
 
 @media (prefers-color-scheme: dark) {
   :root {
     --background: #0C140B;
     --foreground: #EEEEEB;
   }
+}
+
+html {
+  font-size: 18px;
 }
 
 body {
@@ -83,7 +104,6 @@ body {
     color: var(--color-green-300);
   }
   p {
-    font-size: var(--text-base);
     font-family: var(--font-sans);
     padding: calc(var(--spacing) * 2) 0;
   }

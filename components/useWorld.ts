@@ -12,9 +12,15 @@ export type NavDetail = {
 }
 
 
+export type SectionDetail = {
+  pointTarget: {x: number; y: number};
+  name: string;
+  index: number;
+}
+
+
 export const useWorld = () => {
   const [worldExists, setWorldExists] = React.useState(null as boolean | null)
-  console.log("world building")
 
   React.useEffect(() => {
     setWorldExists(window.parent != window)
@@ -23,6 +29,11 @@ export const useWorld = () => {
   return worldExists
 }
 
+export const messageWorld = (message: {type: string} & any) => {
+  if (window.parent != window) {
+    window.parent.postMessage(message, CHALKWORLD_URL)
+  }
+}
 
 export const useWorldNav = (scope: React.RefObject<any>) => {
   const [worldNavigation, setWorldNavigation] = React.useState([] as NavDetail[])
@@ -34,7 +45,7 @@ export const useWorldNav = (scope: React.RefObject<any>) => {
   // Listen to messages from the world
   useWindowListener("message", async (event) => {
     if (event.origin !== CHALKBOARD_URL) {
-      console.log("Received message", event.origin, event.data)
+      // console.log("Received message", event.origin, event.data)
 
       if ((event.data.type === "navigate") && (event.data.destination !== pathname)) {
         await eraseBoardThenNavigate(scope, event.data.destination)
@@ -49,11 +60,19 @@ export const useWorldNav = (scope: React.RefObject<any>) => {
 
   // On first load, request setup info from the world.
   React.useEffect(() => {
-    if (window.parent != window) {
-      console.log("Requesting nav details")
-      window.parent.postMessage({type: "nav-setup-request"}, CHALKWORLD_URL)
-    }
+    messageWorld({type: "nav-setup-request"})
   }, [])
 
   return worldNavigation
 }
+
+
+export const useWorldSections = (sectionDetails: React.RefObject<SectionDetail[]>) => {
+  React.useEffect(() => {
+    messageWorld({
+      type: "section-nav-setup",
+      sections: sectionDetails.current
+    })
+  }, [JSON.stringify(sectionDetails.current)])
+}
+

@@ -25,13 +25,9 @@ export function useEraseBoardThenNavigate() {
   const pathname = usePathname();
 
   const eraseBoardThenNavigate = async (scope: React.RefObject<any>, url: string) => {
-    console.log("Begin nav", url)
     if (pathname != url) {
       await eraseBoard(scope)
       router.push(url)
-      console.log("Pushed nav to router", url)
-    } else {
-      console.log("Already on this page!")
     }
   }
   return eraseBoardThenNavigate
@@ -82,7 +78,7 @@ export function ChalkEntrance(props: React.ComponentProps<"div"> & HTMLMotionPro
 
 
 export function ChalkyScroll(props: React.ComponentProps<"div">) {
-  return <div className="w-full h-full py-8 px-16 overflow-auto" style={{
+  return <div className="w-full h-full py-4 px-8 overflow-auto" style={{
     mask: `url('/img/chalk_mask_top.png') 0 0rem / auto 6em repeat-x exclude,
            url('/img/black_mask.png') intersect, 
            url('/img/chalk_mask_bottom.png') 0 calc(100% + 1px) / auto 6em repeat-x exclude, 

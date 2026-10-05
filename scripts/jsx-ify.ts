@@ -26,7 +26,12 @@ const bindings = Object.keys(classMap)
   }));
 
 const converter = new showdown.Converter({
-      extensions: [...bindings]
+      extensions: [...bindings, {
+        // URLS open in new tab (prevents them trying to open inside the blackboard iframe)
+        type: 'output',
+        regex: new RegExp(`<a (.*)>`, 'g'),
+        replace: `<a target="_blank" rel="noopener noreferrer" $1>`
+      }]
 })
 
 const allPageFiles = await files.walk("markdown/pages")

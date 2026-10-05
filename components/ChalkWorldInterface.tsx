@@ -1,13 +1,11 @@
 'use client'
 
-import {usePathname} from 'next/navigation'
 import {ChalkBoardContext, ChalkEntrance, ChalkLink, eraseBoard} from "@/components/ChalkTransition"
 import React from "react"
 import { useAnimate } from "motion/react"
-import { CHALKBOARD_URL, CHALKWORLD_URL } from "@/app/consts"
-import { useWindowListener } from '@/components/useEventListener'
-import { PAGES, SECTIONS } from '@/app/_index/pageIndex'
-import { useWorld, useWorldNav, NavDetail } from "@/components/useWorld";
+import { PAGES } from '@/app/_index/pageIndex'
+import { useWorld, useWorldNav, messageWorld } from "@/components/useWorld";
+import {ChalkArrow} from "@/components/Arrow";
 
 
 export default function ChalkWorldInterface({children}: Readonly<{
@@ -21,39 +19,37 @@ export default function ChalkWorldInterface({children}: Readonly<{
   function handlePointerMove (event: PointerEvent) {
     // Have to convert to plain object for serialisation to work nicely
     // Only send message if we are in an iframe.
-    if (worldExists) {
-      window.parent.postMessage({
-        type: "pointermove",
-        altKey: event.altKey,
-        button: event.button,
-        buttons: event.buttons,
-        clientX: event.clientX,
-        clientY: event.clientY,
-        ctrlKey: event.ctrlKey,
-        layerX: event.layerX,
-        layerY: event.layerY,
-        metaKey: event.metaKey,
-        movementX: event.movementX,
-        movementY: event.movementY,
-        offsetX: event.offsetX,
-        offsetY: event.offsetY,
-        pageX: event.pageX,
-        pageY: event.pageY,
-        relatedTarget: event.relatedTarget,
-        screenX: event.screenX,
-        screenY: event.screenY,
-        shiftKey: event.shiftKey,
-        x: event.x,
-        y: event.y,
-      }, CHALKWORLD_URL)
-    }
+    messageWorld({
+      type: "pointermove",
+      altKey: event.altKey,
+      button: event.button,
+      buttons: event.buttons,
+      clientX: event.clientX,
+      clientY: event.clientY,
+      ctrlKey: event.ctrlKey,
+      layerX: event.layerX,
+      layerY: event.layerY,
+      metaKey: event.metaKey,
+      movementX: event.movementX,
+      movementY: event.movementY,
+      offsetX: event.offsetX,
+      offsetY: event.offsetY,
+      pageX: event.pageX,
+      pageY: event.pageY,
+      relatedTarget: event.relatedTarget,
+      screenX: event.screenX,
+      screenY: event.screenY,
+      shiftKey: event.shiftKey,
+      x: event.x,
+      y: event.y,
+    })
   }
 
   return (
     <div className="font-sans absolute top-0 bottom-0 right-0 left-0 mask-(--chalk-mask) grid"
          onPointerMove={handlePointerMove}
          style={{
-           gridTemplateColumns: worldExists ? "1fr calc(100% - (var(--spacing) * 24)) 1fr" : "1fr var(--container-4xl) 1fr",
+           gridTemplateColumns: !!worldExists ? "1fr calc(100% - (var(--spacing) * 24)) 1fr" : "1fr var(--container-4xl) 1fr",
            gridTemplateRows: "calc(var(--spacing) * 16) calc(100% - var(--spacing) * 32) calc(var(--spacing) * 16)",
          }}
     >
@@ -103,7 +99,7 @@ export default function ChalkWorldInterface({children}: Readonly<{
         const heightJitter = Math.sin(i * Math.PI / 2)
         const textPos = {
           bottom: `calc(${nav.pointTarget.y}px + 6 * (1 + ${heightJitter}) * var(--spacing))`,
-          left: `calc(${nav.pointTarget.x}px - 3*var(--spacing))`,
+          left: `calc(${nav.pointTarget.x}px - (4 + 4 * ${heightJitter}) * var(--spacing))`,
         }
 
         return <div key={nav.name}>
@@ -113,11 +109,16 @@ export default function ChalkWorldInterface({children}: Readonly<{
           }}>
             {nav.name}
           </div>
+          {/*<ChalkArrow*/}
+          {/*  from={{x: nav.pointTarget.x + 1 - 32 * heightJitter, y: window.innerHeight - (nav.pointTarget.y + 28 * (1.5 + heightJitter))}}*/}
+          {/*  to={{x: nav.pointTarget.x, y: window.innerHeight - 10}}*/}
+          {/*  curvature={-15}*/}
+          {/*/>*/}
           <div key={nav.name + '_arrow'} className="absolute --chalk-mask" style={{
             background: nav.color,
             bottom: nav.pointTarget.y,
             left: nav.pointTarget.x,
-            width: '1px',
+            width: '2px',
             height: textPos.bottom,
             // mask: "var(--chalk-dash)",
           }}></div>
