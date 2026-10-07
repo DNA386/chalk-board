@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 }
 
 
-export default function Forbidden() {
+export default function Forbidden({baseUrl}: {baseUrl: string}) {
   const chalkboard = useContext(ChalkBoardContext);
 
   return (
@@ -19,7 +19,7 @@ export default function Forbidden() {
         <div className="text-zinc-300">Oops!</div>
         <div className="text-zinc-300">You aren't meant to be here...</div>
         <img className="justify-self-center" src="/img/403.png" alt="Gel banana" />
-        <ChalkLink scope={chalkboard} href={'/'}>Back to Home</ChalkLink>
+        <ChalkLink scope={chalkboard} href={baseUrl}>Back to Home</ChalkLink>
       </main>
     </div>
   )

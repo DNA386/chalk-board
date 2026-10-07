@@ -1,10 +1,12 @@
-import Experience from '@/app/mindmap/experience'
-import Quantum from '@/app/mindmap/quantum'
-import QuantumProjects from '@/app/mindmap/quantumProjects'
-import Math from '@/app/mindmap/math'
-import MathTopics from '@/app/mindmap/mathTopics'
-import Papers from '@/app/mindmap/papers'
+import {JSX} from 'react'
+import Experience from '@/app/[world]/mindmap/experience'
+import Quantum from '@/app/[world]/mindmap/quantum'
+import QuantumProjects from '@/app/[world]/mindmap/quantumProjects'
+import Math from '@/app/[world]/mindmap/math'
+import MathTopics from '@/app/[world]/mindmap/mathTopics'
+import Papers from '@/app/[world]/mindmap/papers'
 import MindmapHeading from "@/components/MindmapHeading";
+
 
 export const PAGES = [
   'bio',
@@ -18,7 +20,7 @@ export const MINDMAP_GRID = {
 }
 export type SectionDef = {
   name: string,
-  component: JSX.Element,
+  component: () => JSX.Element,
   classNames: string,
   arrow?: {curvature: number, from: string}
 }

@@ -2,7 +2,7 @@
 
 import Link, {LinkProps} from "next/link";
 import {usePathname, useRouter} from "next/navigation"
-import { animate, useAnimate, motion, AnimationScope, HTMLMotionProps } from "motion/react"
+import { animate, useAnimate, motion, AnimationScope, HTMLMotionProps, stagger } from "motion/react"
 import React, { createContext } from "react"
 
 
@@ -14,9 +14,16 @@ export async function eraseBoard(scope: React.RefObject<any>) {
   await animate([
     [scope.current, {mask: "URL('/img/mask_out_fast.gif') center no-repeat luminance"}, {duration: 0}],
     // Add another animation while the mask gif plays
-    [scope.current, {opacity: 0.8}, {duration: 1}],
+    [scope.current, {opacity: 0.8}, {duration: 1.2}],
     // Avoid accidentally flashing the mask again
     [scope.current, {opacity: 0}, {duration: 0}],
+  ])
+}
+
+export async function resetBoard(scope: React.RefObject<any>) {
+  await animate([
+    [scope.current, {mask: "", opacity: 0}, {duration: 0}],
+    [scope.current, {opacity: 1}, {duration: 1, type: "spring", visualDuration: 0.8}],
   ])
 }
 
@@ -31,6 +38,12 @@ export function useEraseBoardThenNavigate() {
     }
   }
   return eraseBoardThenNavigate
+}
+
+export function useResetBoard(scope: React.RefObject<any>, deps: React.DependencyList) {
+  React.useEffect(() => {
+    resetBoard(scope)
+  }, deps)
 }
 
 
@@ -59,20 +72,27 @@ export function ChalkLink(
 }
 
 // todo: eventually we probably want to animate the inner scrolling here too
-export function ChalkEntrance(props: React.ComponentProps<"div"> & HTMLMotionProps<"div">) {
+export function ChalkEntrance({transition, ...props}: React.ComponentProps<"div"> & HTMLMotionProps<"div">) {
+  const transitionVariant = {
+    hidden: {
+      mask: "",
+      opacity: 0,
+    },
+    show: {
+      opacity: 1,
+      transition: {
+        duration: 1,
+        scale: {type: "spring", visualDuration: 0.8},
+        ...transition,
+      }
+    }
+  }
+
   return <motion.div
     {...props}
-    initial={{
-      opacity: 0
-    }}
-    animate={{
-      opacity: 1
-      // maskPosition: '40% 0%, 0% 50%, 20% 100%',
-    }}
-    transition={{
-      duration: 1,
-      scale: { type: "spring", visualDuration: 0.8, bounce: 0.5 },
-    }}
+    initial="hidden"
+    animate="show"
+    variants={transitionVariant}
   />
 }
 

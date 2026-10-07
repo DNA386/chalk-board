@@ -7,9 +7,11 @@ import { ChalkBoardContext, ChalkLink } from "@/components/ChalkTransition"
 export default function Error({
   error,
   reset,
+  baseUrl,
 }: {
   error: Error & { digest?: string }
   reset: () => void
+  baseUrl: string
 }) {
   const chalkboard = useContext(ChalkBoardContext);
 
@@ -19,7 +21,7 @@ export default function Error({
         <div className="text-green-300">Hmm...</div>
         <div className="text-green-300">Something unexpected occurred.</div>
         <img className="justify-self-center" src="/img/500.png" alt="Gel banana" />
-        <ChalkLink scope={chalkboard} href={'/'}>Back to Home</ChalkLink>
+        <ChalkLink scope={chalkboard} href={baseUrl}>Back to Home</ChalkLink>
         <button onClick={() => reset()}>Reset</button>
       </main>
     </div>

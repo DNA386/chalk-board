@@ -82,19 +82,19 @@ export function ChalkArrow(props: {from: {x: number; y: number}, to: {x: number;
 }
 
 
-export function MindMapArrow(props: {from: string, to: string, curvature: number, mindmap: React.RefObject<HTMLDivElement | null>}) {
+export function MindMapArrow(props: {from: string, to: string, curvature: number, mindmap: HTMLDivElement | null}) {
   // (Attempt at) automagic placing of arrows in the mindmap.
   const [fromEl, setFromEl] = React.useState<HTMLDivElement | null>(null)
   const [toEl, setToEl] = React.useState<HTMLDivElement | null>(null)
 
   React.useEffect(() => {
     if (props.mindmap !== null) {
-      setFromEl(Array.from(props.mindmap.children).find(child => child.id == props.from))
+      setFromEl(Array.from(props.mindmap?.children).find(child => child.id == props.from) as HTMLDivElement)
     }
   }, [props.mindmap, props.from])
   React.useEffect(() => {
     if (props.mindmap !== null) {
-      setToEl(Array.from(props.mindmap.children).find(child => child.id == props.to))
+      setToEl(Array.from(props.mindmap?.children).find(child => child.id == props.to) as HTMLDivElement)
     }
   }, [props.mindmap, props.to])
 

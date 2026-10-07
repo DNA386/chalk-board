@@ -1,14 +1,15 @@
 'use client'
 
 import React from "react"
+import { useParams } from 'next/navigation'
 import { SECTIONS, MINDMAP_GRID } from '@/app/_index/pageIndex'
 import Forbidden from '@/components/Forbidden'
 import {SectionDetail, useWorld, useWorldSections} from "@/components/useWorld";
-import { MindMapArrow } from "@/components/Arrow";
 import MindmapSection from "@/components/MindmapSection";
+import {WORLD_EXISTS_STATE, WORLD_NOT_EXISTS_STATE} from "@/app/consts";
 
 export default function Mindmap() {
-  const worldExists = useWorld()
+  const worldExists = useParams().world == WORLD_EXISTS_STATE
   const [mindmap, setMindmap] = React.useState<HTMLDivElement | null>(null)
 
   const sections = React.useRef<SectionDetail[]>([])
@@ -38,7 +39,7 @@ export default function Mindmap() {
   }, [])
 
   if (!worldExists) {
-    return <Forbidden />
+    return <Forbidden baseUrl={'/' + WORLD_NOT_EXISTS_STATE} />
   }
 
   return (

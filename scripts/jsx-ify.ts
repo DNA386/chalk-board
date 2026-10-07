@@ -43,7 +43,7 @@ allPageFiles
 
       // Assume there's not multiple '.md's lying around in the file string...
       const writeFile = filename
-        .replace(/markdown/, "app")
+        .replace(/markdown/, "app[world]")
         .replace(/pages/, "")
         .replace(/\.md$/, "/page.tsx")
       console.log("Saving", filename, "to", writeFile)
@@ -83,7 +83,7 @@ allMindmapFiles
 
     // Assume there's not multiple '.md's lying around in the file string...
     const writeFile = filename
-      .replace(/markdown/, "app")
+      .replace(/markdown/, "app/[world]")
       .replace(/\.md$/, ".tsx")
     console.log("Saving", filename, "to", writeFile)
 

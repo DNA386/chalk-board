@@ -1,5 +1,5 @@
 import React from "react";
-import {CHALKBOARD_URL, CHALKWORLD_URL} from "@/app/consts";
+import {CHALKBOARD_URL, CHALKWORLD_URL, BOARD_NAVIGATION, WORLD_EXISTS_STATE} from "@/app/consts";
 import {useWindowListener} from "@/components/useEventListener";
 import {useEraseBoardThenNavigate} from "@/components/ChalkTransition";
 import {usePathname, useRouter} from "next/navigation";
@@ -20,7 +20,7 @@ export type SectionDetail = {
 
 
 export const useWorld = () => {
-  const [worldExists, setWorldExists] = React.useState(null as boolean | null)
+  const [worldExists, setWorldExists] = React.useState<boolean | null>(null)
 
   React.useEffect(() => {
     setWorldExists(window.parent != window)
@@ -36,7 +36,7 @@ export const messageWorld = (message: {type: string} & any) => {
 }
 
 export const useWorldNav = (scope: React.RefObject<any>) => {
-  const [worldNavigation, setWorldNavigation] = React.useState([] as NavDetail[])
+  const [worldNavigation, setWorldNavigation] = React.useState(BOARD_NAVIGATION as NavDetail[])
   const router = useRouter()
   const pathname = usePathname()
 
@@ -48,7 +48,7 @@ export const useWorldNav = (scope: React.RefObject<any>) => {
       // console.log("Received message", event.origin, event.data)
 
       if ((event.data.type === "navigate") && (event.data.destination !== pathname)) {
-        await eraseBoardThenNavigate(scope, event.data.destination)
+        await eraseBoardThenNavigate(scope, `/${WORLD_EXISTS_STATE}` + event.data.destination)
       }
 
       if (event.data.type === "setup-nav") {
@@ -60,6 +60,11 @@ export const useWorldNav = (scope: React.RefObject<any>) => {
 
   // On first load, request setup info from the world.
   React.useEffect(() => {
+    // Unset the board navigation if we aren't in the 3D world
+    if (window.parent == window) {
+      setWorldNavigation([])
+    }
+
     messageWorld({type: "nav-setup-request"})
   }, [])
 

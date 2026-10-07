@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   description: "The page you were looking for doesn't seem to exist.",
 }
 
-export default function NotFound() {
+export default function NotFound({baseUrl} : {baseUrl: string}) {
   const chalkboard = useContext(ChalkBoardContext);
 
   return (
@@ -18,7 +18,7 @@ export default function NotFound() {
         <div className="text-violet-300">Much like the banana,</div>
         <div className="text-violet-300">this page seems to be missing...</div>
         <img className="justify-self-center" src="/img/404.png" alt="Ghost banana: 404" />
-        <ChalkLink scope={chalkboard} href={'/'}>Back to Home</ChalkLink>
+        <ChalkLink scope={chalkboard} href={baseUrl}>Back to Home</ChalkLink>
       </main>
     </div>
   )
