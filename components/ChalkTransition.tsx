@@ -60,7 +60,10 @@ export function ChalkLink(
 
   return (
     <div className="flex flex-col items-stretch w-fit my-2">
-      <Link {...props} className={isInternalNav && pathname == props.href ? 'underline' : ''} onNavigate={async (e) => {
+      <Link {...props}
+            {...(isInternalNav ? {} : {target:"_blank", rel:"noopener noreferrer"})}
+            className={isInternalNav && pathname == props.href ? 'underline' : ''}
+            onNavigate={async (e) => {
         // Only executes during SPA navigation
         if (isInternalNav) {
           e.preventDefault()
