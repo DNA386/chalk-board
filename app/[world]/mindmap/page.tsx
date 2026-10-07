@@ -9,7 +9,7 @@ import MindmapSection from "@/components/MindmapSection";
 import {WORLD_EXISTS_STATE, WORLD_NOT_EXISTS_STATE} from "@/app/consts";
 
 export default function Mindmap() {
-  const worldExists = useParams().world == WORLD_EXISTS_STATE
+  const worldExists = useWorld()
   const [mindmap, setMindmap] = React.useState<HTMLDivElement | null>(null)
 
   const sections = React.useRef<SectionDetail[]>([])
@@ -38,7 +38,7 @@ export default function Mindmap() {
     }
   }, [])
 
-  if (!worldExists) {
+  if (worldExists === false) {
     return <Forbidden baseUrl={'/' + WORLD_NOT_EXISTS_STATE} />
   }
 
