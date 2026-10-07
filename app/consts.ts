@@ -12,4 +12,4 @@ export const BOARD_NAVIGATION = [
 
 export const WORLD_EXISTS_STATE = "world"
 export const WORLD_NOT_EXISTS_STATE = "web"
-export const WORLD_STATES = [{world: WORLD_EXISTS_STATE}, {world: WORLD_NOT_EXISTS_STATE}] as const
+export const WORLD_STATES = [{world: WORLD_EXISTS_STATE}, {world: WORLD_NOT_EXISTS_STATE}]

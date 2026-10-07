@@ -58,6 +58,20 @@ export const useWorldNav = (scope: React.RefObject<any>) => {
     }
   })
 
+  // Pass keyboard events up
+  useWindowListener("keyup", (event) => {
+    messageWorld({
+      type: "keyup",
+      altKey: event.altKey,
+      code: event.code,
+      ctrlKey: event.ctrlKey,
+      isComposing: event.isComposing,
+      key: event.key,
+      location: event.location,
+      metaKey: event.metaKey,
+    })
+  })
+
   // On first load, request setup info from the world.
   React.useEffect(() => {
     // Unset the board navigation if we aren't in the 3D world

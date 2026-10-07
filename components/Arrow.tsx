@@ -63,7 +63,7 @@ export function ChalkArrow(props: {from: {x: number; y: number}, to: {x: number;
   L ${getRelativeSVGCoord(arrowPoints.right.x, "x")} ${getRelativeSVGCoord(arrowPoints.right.y, "y")}
   `
 
-  return <div className="absolute opacity-30" style={{
+  return <div className="absolute opacity-30 pointer-events-none" style={{
     top: boundingBox.minY,
     left: boundingBox.minX,
     width: `${width}px`,
