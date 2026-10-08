@@ -5,9 +5,9 @@ import {usePathname, useRouter} from "next/navigation"
 import React, { createContext } from "react"
 
 
-export const ChalkBoardContext: React.Context<HTMLElement> = createContext({} as HTMLElement)
+export const ChalkBoardContext: React.Context<React.RefObject<HTMLElement | null>> = createContext({} as React.RefObject<HTMLElement | null>)
 
-export async function eraseBoard(scope: React.RefObject<HTMLElement>) {
+export async function eraseBoard(scope: React.RefObject<HTMLElement | null>) {
   if (!scope.current) {return}
 
   scope.current.style.mask = "URL('/img/mask_out_fast.gif') center no-repeat luminance"
@@ -15,7 +15,7 @@ export async function eraseBoard(scope: React.RefObject<HTMLElement>) {
   scope.current.style.opacity = "0"
 }
 
-export async function writeBoard(scope: React.RefObject<HTMLElement>, delay: number) {
+export async function writeBoard(scope: React.RefObject<HTMLElement | null>, delay: number) {
   if (!scope.current) {return}
 
   scope.current.style.mask = ""
@@ -48,7 +48,7 @@ export function useEraseBoardThenNavigate() {
   const router = useRouter()
   const pathname = usePathname();
 
-  const eraseBoardThenNavigate = async (scope: React.RefObject<any>, url: string) => {
+  const eraseBoardThenNavigate = async (scope: React.RefObject<HTMLElement | null>, url: string) => {
     if (pathname != url) {
       await eraseBoard(scope)
       router.push(url)
@@ -58,7 +58,7 @@ export function useEraseBoardThenNavigate() {
 }
 
 
-export function useWriteBoard(scope: React.RefObject<any>, deps: React.DependencyList, delay?: number) {
+export function useWriteBoard(scope: React.RefObject<HTMLElement | null>, deps: React.DependencyList, delay?: number) {
   React.useEffect(() => {
     writeBoard(scope, delay ?? 0)
   }, deps)
@@ -67,7 +67,7 @@ export function useWriteBoard(scope: React.RefObject<any>, deps: React.Dependenc
 
 export function ChalkLink(
   {scope, isInternalNav = true, children, ...props}: {
-    scope: React.RefObject<any>,
+    scope: React.RefObject<HTMLElement | null>,
     children: React.ReactNode
     isInternalNav?: boolean,
   } & LinkProps,

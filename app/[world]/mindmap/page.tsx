@@ -1,12 +1,11 @@
 'use client'
 
 import React from "react"
-import { useParams } from 'next/navigation'
 import { SECTIONS, MINDMAP_GRID } from '@/app/_index/pageIndex'
 import Forbidden from '@/components/Forbidden'
 import {SectionDetail, useWorld, useWorldSections} from "@/components/useWorld";
 import MindmapSection from "@/components/MindmapSection";
-import {WORLD_EXISTS_STATE, WORLD_NOT_EXISTS_STATE} from "@/app/consts";
+import { WORLD_NOT_EXISTS_STATE } from "@/app/consts";
 
 export default function Mindmap() {
   const worldExists = useWorld()
