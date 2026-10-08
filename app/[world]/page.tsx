@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useContext } from "react"
-import {ChalkBoardContext, ChalkLink, useEraseBoardThenNavigate} from "@/components/ChalkTransition"
+import {ChalkBoardContext, useEraseBoardThenNavigate} from "@/components/ChalkTransition"
 import { PAGES } from "@/app/_index/pageIndex";
 import { WORLD_EXISTS_STATE } from "@/app/consts";
 

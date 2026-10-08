@@ -37,7 +37,6 @@ export const messageWorld = (message: {type: string} & any) => {
 
 export const useWorldNav = (scope: React.RefObject<any>) => {
   const [worldNavigation, setWorldNavigation] = React.useState(BOARD_NAVIGATION as NavDetail[])
-  const router = useRouter()
   const pathname = usePathname()
 
   const eraseBoardThenNavigate = useEraseBoardThenNavigate()
