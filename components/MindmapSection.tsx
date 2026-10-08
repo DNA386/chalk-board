@@ -2,7 +2,7 @@ import {MindMapArrow} from "@/components/Arrow";
 import React from "react";
 import {SectionDef} from "@/app/_index/pageIndex";
 import {messageWorld} from "@/components/useWorld";
-import {ChalkEntrance} from "@/components/ChalkTransition";
+import {ChalkEntrance, useWriteBoard} from "@/components/ChalkTransition";
 
 
 export default function MindmapSection(props: {
@@ -18,8 +18,14 @@ export default function MindmapSection(props: {
     })
   }
 
-  return <div className={props.details.classNames + ' items-center'} id={props.details.name} onClick={() => onClick()}>
-    <ChalkEntrance key={'mindmap-' + props.details.name} transition={{delay: props.index/3}}>
+  const scope = React.useRef<HTMLDivElement>(null)
+  useWriteBoard(scope, [], props.index * 1000 / 3)
+
+  return <div className={props.details.classNames + ' items-center'}
+              id={props.details.name}
+              onClick={() => onClick()}
+  >
+    <ChalkEntrance ref={scope}>
       <props.details.component/>
       {props.details.arrow ? (
         <MindMapArrow

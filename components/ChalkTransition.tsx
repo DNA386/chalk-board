@@ -2,29 +2,46 @@
 
 import Link, {LinkProps} from "next/link";
 import {usePathname, useRouter} from "next/navigation"
-import { animate, useAnimate, motion, AnimationScope, HTMLMotionProps, stagger } from "motion/react"
 import React, { createContext } from "react"
 
 
-export const ChalkBoardContext: React.Context<AnimationScope<React.ElementType>> = createContext({} as AnimationScope<React.ElementType>)
-export const ChalkSectionContext: React.Context<AnimationScope<React.ElementType>> = createContext({} as AnimationScope<React.ElementType>)
+export const ChalkBoardContext: React.Context<HTMLElement> = createContext({} as HTMLElement)
 
+export async function eraseBoard(scope: React.RefObject<HTMLElement>) {
+  if (!scope.current) {return}
 
-export async function eraseBoard(scope: React.RefObject<any>) {
-  await animate([
-    [scope.current, {mask: "URL('/img/mask_out_fast.gif') center no-repeat luminance"}, {duration: 0}],
-    // Add another animation while the mask gif plays
-    [scope.current, {opacity: 0.8}, {duration: 1.2}],
-    // Avoid accidentally flashing the mask again
-    [scope.current, {opacity: 0}, {duration: 0}],
-  ])
+  scope.current.style.mask = "URL('/img/mask_out_fast.gif') center no-repeat luminance"
+  await new Promise(resolve => setTimeout(resolve, 1100));
+  scope.current.style.opacity = "0"
 }
 
-export async function resetBoard(scope: React.RefObject<any>) {
-  await animate([
-    [scope.current, {mask: "", opacity: 0}, {duration: 0}],
-    [scope.current, {opacity: 1}, {duration: 1, type: "spring", visualDuration: 0.8}],
-  ])
+export async function writeBoard(scope: React.RefObject<HTMLElement>, delay: number) {
+  if (!scope.current) {return}
+
+  scope.current.style.mask = ""
+  await new Promise(resolve => setTimeout(resolve, delay));
+  await new Promise((resolve) => {
+    let start: number
+    function fade(timestamp: number) {
+      if (!scope.current) {return resolve(null)}
+
+      if (start === undefined) {
+        start = timestamp;
+      }
+      const elapsed = timestamp - start;
+      const opacity = Math.min(Math.sin(elapsed * Math.PI / 2000), 1);
+      scope.current.style.opacity = `${opacity}`;
+
+      // Account for rounding errors
+      if (opacity < 1 - 1e-5) {
+        requestAnimationFrame(fade);
+      } else {
+        scope.current.style.opacity = "1"
+        resolve(1)
+      }
+    }
+    requestAnimationFrame(fade);
+  })
 }
 
 export function useEraseBoardThenNavigate() {
@@ -40,9 +57,10 @@ export function useEraseBoardThenNavigate() {
   return eraseBoardThenNavigate
 }
 
-export function useResetBoard(scope: React.RefObject<any>, deps: React.DependencyList) {
+
+export function useWriteBoard(scope: React.RefObject<any>, deps: React.DependencyList, delay?: number) {
   React.useEffect(() => {
-    resetBoard(scope)
+    writeBoard(scope, delay ?? 0)
   }, deps)
 }
 
@@ -74,29 +92,10 @@ export function ChalkLink(
   )
 }
 
-// todo: eventually we probably want to animate the inner scrolling here too
-export function ChalkEntrance({transition, ...props}: React.ComponentProps<"div"> & HTMLMotionProps<"div">) {
-  const transitionVariant = {
-    hidden: {
-      mask: "",
-      opacity: 0,
-    },
-    show: {
-      opacity: 1,
-      transition: {
-        duration: 1,
-        scale: {type: "spring", visualDuration: 0.8},
-        ...transition,
-      }
-    }
-  }
 
-  return <motion.div
-    {...props}
-    initial="hidden"
-    animate="show"
-    variants={transitionVariant}
-  />
+// todo: eventually we probably want to animate the inner scrolling here too
+export function ChalkEntrance(props: React.ComponentProps<"div">) {
+  return <div style={{opacity: 0, mask: ""}} {...props} />
 }
 
 

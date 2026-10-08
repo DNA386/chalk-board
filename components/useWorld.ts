@@ -23,7 +23,7 @@ export const useWorld = () => {
   const [worldExists, setWorldExists] = React.useState<boolean | null>(null)
 
   React.useEffect(() => {
-    setWorldExists(window.parent != window)
+    setWorldExists(window.parent !== window)
   }, [])
 
   return worldExists

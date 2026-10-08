@@ -1,9 +1,8 @@
 'use client'
 
-import {ChalkBoardContext, ChalkEntrance, ChalkLink, useResetBoard} from "@/components/ChalkTransition"
+import {ChalkBoardContext, ChalkEntrance, ChalkLink, useWriteBoard} from "@/components/ChalkTransition"
 import React from "react"
 import { usePathname, useSearchParams } from "next/navigation";
-import { useAnimate } from "motion/react"
 import { useWorldNav, messageWorld } from "@/components/useWorld";
 import { PAGES } from '@/app/_index/pageIndex'
 import {ChalkArrow} from "@/components/Arrow";
@@ -14,13 +13,15 @@ export default function ChalkWorldInterface({worldExists, children, ...props}: R
   children: React.ReactNode;
   worldExists: boolean;
 } & React.ComponentProps<"div">>) {
-  const [scope, animate] = useAnimate()
+  const scope = React.useRef<HTMLDivElement>(null)
   const worldNavigation = useWorldNav(scope)
 
   // Reset the board if the route changes
   const pathname = usePathname()
   const searchParams = useSearchParams()
-  useResetBoard(scope, [pathname, searchParams])
+
+  useWriteBoard(scope, [])
+  useWriteBoard(scope, [pathname, searchParams])
 
   function handlePointerMove (event: React.PointerEvent) {
     // Have to convert to plain object for serialisation to work nicely
