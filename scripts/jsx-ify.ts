@@ -43,7 +43,7 @@ allPageFiles
 
       // Assume there's not multiple '.md's lying around in the file string...
       const writeFile = filename
-        .replace(/markdown/, "app[world]")
+        .replace(/markdown/, "app/[world]")
         .replace(/pages/, "")
         .replace(/\.md$/, "/page.tsx")
       console.log("Saving", filename, "to", writeFile)
@@ -94,7 +94,6 @@ allMindmapFiles
     const component: string = `'use client'
 
 import Markdown from '@/components/Markdown'
-import { ChalkyScroll } from "@/components/ChalkTransition"
 
 
 const htmlContent: string = \`${htmlContent}\`
