@@ -13,6 +13,9 @@ There are two sub-directories:
   if you want a page to live at `https://blackboard.cv/path/to/page`, save it under `/markdown/pages/path/to/page.md`.
   By default no layouts or fallbacks will be generated, only the main page.
   If you would like to customise this, the extra layouts can be added manually to the app dir in the desired place.
+- To activate pagination, you can add `use pagination` to the start of the file. The parsing then expects
+  page delimiters `--- {title}`. The title field is optional, if unset the page will simply be numbered. 
+  The first section is understood to be the title and will remain accross the various pages.
 
 You can compile them into the relevant components/pages via:
 ```bash
@@ -44,6 +47,11 @@ npm run dev
 The dev server should reload automatically when it detects a change in the files, 
 but the markdown compilation must still be run manually.
 
+
+For the production version, build the app:
+```bash
+npm run build
+```
 
 ## Connecting to the world
 
