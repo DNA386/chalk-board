@@ -90,7 +90,7 @@ export default function ChalkWorldInterface({worldExists, children, ...props}: R
         ></div>
       </div>
 
-      <div className={"absolute z-10 right-2 font-sans text-center opacity-60 text-zinc-500 bottom-2 text-xs"}>
+      <div className={"absolute z-10 right-2 font-sans text-center opacity-40 text-zinc-500 bottom-2 text-xs"}>
         Theme by
         <a href="https://github.com/DNA386" target="_blank" rel="noopener noreferrer">DNA386</a>
         based on
