@@ -90,6 +90,13 @@ export default function ChalkWorldInterface({worldExists, children, ...props}: R
         ></div>
       </div>
 
+      <div className={"absolute z-10 right-2 font-sans text-center opacity-60 text-zinc-500 bottom-2 text-xs"}>
+        Theme by
+        <a href="https://github.com/DNA386" target="_blank" rel="noopener noreferrer">DNA386</a>
+        based on
+        <a href="https://henryheffernan.com/" target="_blank" rel="noopener noreferrer">henryheffernan.com</a>
+      </div>
+
       {/* Main content */}
       <ChalkEntrance className={"w-full h-full p-4 flex justify-center relative" + (worldExists ? "" : " w-2xl xl:w-4xl 2xl:w-6xl 4xl:w-8xl")} ref={scope} key="main-board">
         <ChalkBoardContext value={scope}>
