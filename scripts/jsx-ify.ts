@@ -34,29 +34,70 @@ const converter = new showdown.Converter({
       }]
 })
 
-const allPageFiles = await files.walk("markdown/pages")
-allPageFiles
-  .filter((filename) => /\.md$/.test(filename))
-  .map(async (filename: string) => {
-      const mdContent = await files.read(filename)
-      const htmlContent = converter.makeHtml(mdContent)
 
-      // Assume there's not multiple '.md's lying around in the file string...
-      const writeFile = filename
-        .replace(/markdown/, "app/[world]")
-        .replace(/pages/, "")
-        .replace(/\.md$/, "/page.tsx")
-      console.log("Saving", filename, "to", writeFile)
+function convertPaginated (mdContent: string) {
+  // Extract the first heading to use as title
+  // Split content into paginated sections according to markdown rule placement
+  // Optional section titles
+  const findBreak = /^---+.*$/mg
+  const findSubtitle = /^---+(?<subtitle>.*)$/mg
 
-      // Build a component which renders the markdown content
-      const component: string = `'use client'
+  const subtitles = Array.from(mdContent.matchAll(findSubtitle)?.map(
+    (match, i) => {
+      let subtitle = match.groups?.subtitle
+      if (!subtitle || subtitle.length == 0) {
+        subtitle = `${i + 1}`
+      }
+      return subtitle
+    }
+  ) ?? [])
+
+  const pagesMd = mdContent.split(findBreak)
+  const titleHtml = converter.makeHtml(pagesMd[0])
+  const pages = pagesMd.slice(1).map((pageMd, i) => {
+    const pageHtml = converter.makeHtml(pageMd)
+    return {
+      subtitle: subtitles[i],
+      html: pageHtml,
+    }
+  })
+
+  // Build a component which renders the paginated markdown content
+  return `'use client'
+
+import { ChalkyPagination } from "@/components/ChalkTransition"
+
+const title: string = \`${titleHtml}\`
+const subtitles: string[] = [${pages.map(page => '\"' + page.subtitle + '\"').join(', ')}]
+const pages: string[] = [${pages.map(page => '\`' + page.html + '\`').join(', ')}]
+
+export default function Page() {
+  return (
+    <div className="w-full h-full relative flex justify-center overflow-auto">
+      <main className="flex w-full max-h-90% flex-col items-center justify-between sm:items-start">
+        <ChalkyPagination 
+            title={title}
+            pageNames={subtitles} 
+            pages={pages}>
+        </ChalkyPagination>
+      </main>
+    </div>
+  )
+}`
+}
+
+
+function convertScollable (mdContent: string) {
+  // Direct conversion
+  const htmlContent = converter.makeHtml(mdContent)
+
+  return `'use client'
 
 import Markdown from '@/components/Markdown'
 import { ChalkyScroll } from "@/components/ChalkTransition"
 
 
 const htmlContent: string = \`${htmlContent}\`
-
 
 export default function Page() {
   return (
@@ -69,6 +110,31 @@ export default function Page() {
     </div>
   )
 }`
+}
+
+
+const allPageFiles = await files.walk("markdown/pages")
+allPageFiles
+  .filter((filename) => /\.md$/.test(filename))
+  .map(async (filename: string) => {
+      const mdContent = await files.read(filename)
+
+      // Decide if should be paginated.
+      // Pagination marked by 'use pagination' at start of md file
+      const matchPagination = /^use pagination/
+      const isPaginated = !!mdContent.match(matchPagination)
+
+      const component = isPaginated ?
+        convertPaginated(mdContent.replace(matchPagination, ''))
+        : convertScollable(mdContent)
+
+      // Assume there's not multiple '.md's lying around in the file string...
+      const writeFile = filename
+        .replace(/markdown/, "app/[world]")
+        .replace(/pages/, "")
+        .replace(/\.md$/, "/page.tsx")
+      console.log("Saving", filename, "to", writeFile)
+
       await files.write(writeFile, component)
   })
 

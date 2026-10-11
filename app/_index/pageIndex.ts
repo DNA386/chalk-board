@@ -11,7 +11,7 @@ import MindmapHeading from "@/components/MindmapHeading";
 export const PAGES = [
   'bio',
   'papers',
-  'lorem_ipsum',
+  'experience',
 ]
 
 export const MINDMAP_GRID = {

@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({children}: Readonly<{children: React.ReactNode}>) {
   return (
-    <html lang="en" className="text-[12px] md:text-[14px] lg:text-[16px]">
+    <html lang="en" className="text-[12px] md:text-[14px] lg:text-[16px] xl:text-[18px]">
       <body
         className="text-zinc-100 font-sans antialiased absolute top-0 left-0 right-0 bottom-0"
         style={{

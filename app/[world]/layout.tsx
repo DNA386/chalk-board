@@ -23,9 +23,9 @@ export default function RootTemplate({
   const worldExists = React.use(params).world == WORLD_EXISTS_STATE
   return <Suspense fallback={
     <div className="w-full h-full absolute flex justify-center">
-      <main className="flex items-center justify-center py-32 px-16">
+      <div className="flex items-center justify-center py-32 px-16">
         <h1>...</h1>
-      </main>
+      </div>
     </div>
   }>
     <ChalkWorldInterface worldExists={worldExists}>
