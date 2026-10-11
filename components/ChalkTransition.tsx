@@ -2,7 +2,7 @@
 
 import Link, {LinkProps} from "next/link";
 import {usePathname, useRouter} from "next/navigation"
-import React, {createContext, UIEventHandler, useState} from "react"
+import React, {createContext, useState} from "react"
 import Markdown from "@/components/Markdown";
 import { ChalkArrow } from "@/components/Arrow";
 
@@ -116,9 +116,9 @@ export function ChalkyScroll(props: React.ComponentProps<"div">) {
 
 
 export function ChalkyPagination(props: {title: string, pageNames: string[], pages: string[]}) {
-  const titleEl = React.useRef(null)
-  const menuEl = React.useRef(null)
-  const scope = React.useRef(null)
+  const titleEl = React.useRef<HTMLDivElement>(null)
+  const menuEl = React.useRef<HTMLDivElement>(null)
+  const scope = React.useRef<HTMLDivElement>(null)
 
   const [page, setPage] = useState(0);
   const scrollBase = React.useRef(0)
@@ -152,24 +152,18 @@ export function ChalkyPagination(props: {title: string, pageNames: string[], pag
     }
   }, [titleEl, menuEl]);
 
-  const handleScrollMenu: UIEventHandler = async (event) => {
-    console.log("handling Scroll!", scrolling.current, scrollBase.current, event)
+  const handleScrollMenu: React.WheelEventHandler = async (event) => {
     if (!scrolling.current) {
-      if (scrollBase.current) {
-        const dirUp = scrollBase.current > event.target.scrollTop
-        scrollBase.current = event.target.scrollTop
-        if (dirUp && event. page - 1 >= 0) {
-          scrolling.current = true
-          await changePage(page + 1)
-          scrolling.current = false
-        }
-        if (!dirUp && event. page + 1 < props.pageNames.length) {
-          scrolling.current = true
-          await changePage(page + 1)
-          scrolling.current = false
-        }
-      } else {
-        scrollBase.current = event.target.scrollTop
+      const dirUp = event.deltaY < 0
+      if (dirUp && page - 1 >= 0) {
+        scrolling.current = true
+        await changePage(page - 1)
+        scrolling.current = false
+      }
+      if (!dirUp && page + 1 < props.pageNames.length) {
+        scrolling.current = true
+        await changePage(page + 1)
+        scrolling.current = false
       }
     }
   }
@@ -178,7 +172,7 @@ export function ChalkyPagination(props: {title: string, pageNames: string[], pag
     <div  className="opacity-0 md:opacity-100">
       <ChalkArrow from={arrowCoords.from} to={arrowCoords.to} curvature={-50}></ChalkArrow>
     </div>
-    <div ref={menuEl} className="flex flex-row md:flex-col max-w-md my-auto gap-8" onScroll={handleScrollMenu}>
+    <div ref={menuEl} className="flex flex-row md:flex-col max-w-md my-auto gap-8" onWheel={handleScrollMenu}>
       {props.pageNames.map((pageName, i) => {
         return <div key={i} onClick={() => {changePage(i)}} className={i == page ? "underline text-violet-300" : ""}>
           {pageName}
