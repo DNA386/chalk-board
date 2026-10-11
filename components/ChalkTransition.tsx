@@ -168,21 +168,18 @@ export function ChalkyPagination(props: {title: string, pageNames: string[], pag
     }
   }
 
-  return <div className="w-full h-full py-4 px-8 overflow-visible flex flex-col md:flex-row gap-8 items-center start">
-    <div  className="opacity-0 md:opacity-100">
-      <ChalkArrow from={arrowCoords.from} to={arrowCoords.to} curvature={-50}></ChalkArrow>
-    </div>
-    <div ref={menuEl} className="flex flex-row md:flex-col max-w-md my-auto gap-8" onWheel={handleScrollMenu}>
+  return <div className="w-full h-full py-4 px-8 overflow-visible flex flex-col md:flex-row gap-8 items-start start">
+    <div ref={menuEl} className="flex shrink-0 flex-row md:flex-col md:w-32 md:mt-32 gap-8" onWheel={handleScrollMenu}>
       {props.pageNames.map((pageName, i) => {
         return <div key={i} onClick={() => {changePage(i)}} className={i == page ? "underline text-violet-300" : ""}>
           {pageName}
         </div>
       })}
     </div>
-    <div className="flex flex-col justify-start items-start h-full">
+    <div className="flex flex-grow flex-col justify-start items-start h-full overflow-visible">
       <Markdown ref={titleEl} html={props.title}></Markdown>
 
-      <div className="overflow-auto py-18 pr-4 -mt-12" style={{
+      <div className="overflow-auto py-18 pr-4 -my-12 w-full" style={{
         mask: `url('/img/chalk_mask_top.png') 0 0rem / auto 6em repeat-x exclude,
          url('/img/black_mask.png') intersect, 
          url('/img/chalk_mask_bottom.png') 0 calc(100% + 1px) / auto 6em repeat-x exclude, 
@@ -192,6 +189,9 @@ export function ChalkyPagination(props: {title: string, pageNames: string[], pag
           <Markdown html={props.pages[page]}></Markdown>
         </div>
       </div>
+    </div>
+    <div  className="opacity-0 md:opacity-100">
+      <ChalkArrow from={arrowCoords.from} to={arrowCoords.to} curvature={-50}></ChalkArrow>
     </div>
   </div>
 }

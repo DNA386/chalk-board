@@ -73,7 +73,7 @@ const pages: string[] = [${pages.map(page => '\`' + page.html + '\`').join(', ')
 
 export default function Page() {
   return (
-    <div className="w-full h-full relative flex justify-center overflow-auto">
+    <div className="w-full h-full relative flex justify-center overflow-visible">
       <main className="flex w-full max-h-90% flex-col items-center justify-between sm:items-start">
         <ChalkyPagination 
             title={title}

@@ -1,4 +1,7 @@
+use pagination
 # Experience
+
+--- Education
 
 ## Programming Experience
 
@@ -14,6 +17,8 @@ C++, Rust, Python, MATLAB, CUDA, PyTorch, TensorFlow, TorchQuantum.
 
 **BSc Honours, Mathematics and Computer Science, University of Winnipeg — 2015–2019**  
 *Gold Medals for Highest GPA in Mathematics and the Faculty of Sciences.*
+
+--- Editorial and Reviewing Activities
 
 ## Editorial and Reviewing Activities
 
@@ -31,6 +36,7 @@ C++, Rust, Python, MATLAB, CUDA, PyTorch, TensorFlow, TorchQuantum.
 
 - Refereed manuscripts on Grassmannian geometry and representation theory.
 
+--- Selected Talks
 ## Selected Talks
 
 **Simplifying circuits via semantic symmetries — Dec 2024**  
@@ -63,6 +69,7 @@ Imperial College London — Junior London Algebra Colloquium (invited).
 **Decomposition numbers of Symmetric Groups — Sept 2021**  
 EPFL — Young Algebraist Conference.
 
+--- Research Visits
 ## Research Visits
 
 **Université de Versailles Saint-Quentin-en-Yvelines — Sept 2023–Aug 2024**  
@@ -77,6 +84,7 @@ EPFL — Young Algebraist Conference.
 **Isaac Newton Institute: Cluster algebras and representations — Sept 2021–Dec 2021**  
 *Collaborating with Professor Karin Baur and Dr. Véronique Bazier-Matte.*
 
+--- Awards and Scholarships
 ## Awards and Scholarships
 
 **Fondation Mathématique Jacques Hadamard Scientific visibility award — 2022**  

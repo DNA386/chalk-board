@@ -1,5 +1,7 @@
+use pagination
 # Papers
-# Papers
+
+---
 
 ## [Decoded Quantum Interferometry Beyond Hamming: Rank-Metric and Translation Association Schemes](https://arxiv.org/html/2606.04843v1)
 
@@ -17,6 +19,8 @@ B. A. Wilson, C. Krawchuk, 2026.
 
 A. Connolly, A. Bhayat, C. Kargı, C. Krawchuk et al., 2026.
 
+---
+
 ## [Efficient Generation of Parameterised Quantum Circuits from Large Texts](https://arxiv.org/abs/2505.13208)
 
 C. Krawchuk, N. Khatri, N. J. Ortega, D. Kartsaklis, 2025.
@@ -32,6 +36,7 @@ K. Baur, C. Krawchuk, 2024.
 ## Techniques for Constructing Cluster Structures on Varieties
 
 C. Krawchuk, 2023.
+
 
 Arbeitsgemeinschaft: Cluster Algebras. *Oberwolfach Rep.* 20 (2023), no. 4, pp. 2637–2680.
 

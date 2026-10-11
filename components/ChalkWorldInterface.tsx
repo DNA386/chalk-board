@@ -91,7 +91,7 @@ export default function ChalkWorldInterface({worldExists, children, ...props}: R
       </div>
 
       {/* Main content */}
-      <ChalkEntrance className={"w-full h-full p-4 flex justify-center relative" + (worldExists ? "" : " max-w-2xl xl:max-w-4xl 2xl:max-w-6xl 4xl:max-w-8xl")} ref={scope} key="main-board">
+      <ChalkEntrance className={"w-full h-full p-4 flex justify-center relative" + (worldExists ? "" : " w-2xl xl:w-4xl 2xl:w-6xl 4xl:w-8xl")} ref={scope} key="main-board">
         <ChalkBoardContext value={scope}>
           {children}
         </ChalkBoardContext>
