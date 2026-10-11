@@ -22,12 +22,6 @@
   --cursor-chalk: url(/img/chalk_cursor_w.png), auto;
   --cursor-text: url(/img/chalk_cursor_text.png), auto;
   --cursor-link: url(/img/chalk_cursor_v.png), auto;
-
-  /*  Large screens */
-  --breakpoint-3xl: 120rem;
-  --breakpoint-4xl: 150rem;
-  --breakpoint-6xl: 200rem;
-  --breakpoint-8xl: 250rem;
 }
 
 @font-face {
@@ -69,6 +63,9 @@
   }
 }
 
+html {
+  font-size: 18px;
+}
 
 body {
   background: var(--background);
