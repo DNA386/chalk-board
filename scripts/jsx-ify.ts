@@ -94,6 +94,7 @@ allMindmapFiles
     const component: string = `'use client'
 
 import Markdown from '@/components/Markdown'
+import { ChalkyScroll } from "@/components/ChalkTransition"
 
 
 const htmlContent: string = \`${htmlContent}\`

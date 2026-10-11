@@ -3,4 +3,5 @@
 Interested in quantum algorithms where symmetry and geometry are not just tools, 
 but the point.
 This includes optimisation (VQAs, DQI), variational trainability 
-(barren plateaus, DLA expressivity), and QML generalisation via symmetry.
+(barren plateaus, DLA expressivity), and problems in algebra & topology (homology, knot invariants, HSPs).
+

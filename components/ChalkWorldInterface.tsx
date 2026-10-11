@@ -52,7 +52,7 @@ export default function ChalkWorldInterface({worldExists, children, ...props}: R
          {...props}
          onPointerMove={handlePointerMove}
          style={{
-           gridTemplateColumns: worldExists ? "1fr calc(100% - (var(--spacing) * 24)) 1fr" : "1fr auto 1fr",
+           gridTemplateColumns: worldExists ? "1fr calc(100% - (var(--spacing) * 24)) 1fr" : "1fr var(--container-4xl) 1fr",
            gridTemplateRows: "calc(var(--spacing) * 16) calc(100% - var(--spacing) * 32) calc(var(--spacing) * 16)",
          }}
     >
@@ -91,7 +91,7 @@ export default function ChalkWorldInterface({worldExists, children, ...props}: R
       </div>
 
       {/* Main content */}
-      <ChalkEntrance className={"w-full h-full p-4 flex justify-center relative" + (worldExists ? "" : " max-w-xl xl:max-w-2xl 2xl:max-w-4xl 4xl:max-w-6xl 6xl:max-w-8xl")} ref={scope} key="main-board">
+      <ChalkEntrance className="w-full h-full p-4 flex justify-center relative" ref={scope} key="main-board">
         <ChalkBoardContext value={scope}>
           {children}
         </ChalkBoardContext>

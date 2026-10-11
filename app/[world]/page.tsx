@@ -25,7 +25,7 @@ export default function Home({ params }:  {
 
   return (
     <div className="w-full h-full relative flex justify-center">
-      <main className="flex w-full max-w-4xl flex-col items-center justify-center py-32 px-16 text-center" onClick={handleClick}>
+      <main className="flex w-full max-w-4xl flex-col items-center justify-center py-32 px-16" onClick={handleClick}>
         <h1>Colin Krawchuk</h1>
         <h3 className="text-3xl">Underappreciated genius, looking for work.</h3>
 
