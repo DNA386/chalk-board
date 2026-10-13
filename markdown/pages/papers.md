@@ -33,7 +33,7 @@ C. Krawchuk, 2024.
 
 K. Baur, C. Krawchuk, 2024.
 
-## Techniques for Constructing Cluster Structures on Varieties
+### Techniques for Constructing Cluster Structures on Varieties
 
 C. Krawchuk, 2023.
 
