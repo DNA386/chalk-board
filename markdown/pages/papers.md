@@ -33,18 +33,13 @@ C. Krawchuk, 2024.
 
 K. Baur, C. Krawchuk, 2024.
 
-### Techniques for Constructing Cluster Structures on Varieties
+## [Techniques for Constructing Cluster Structures on Varieties](https://ems.press/journals/owr/articles/14298002)
 
 C. Krawchuk, 2023.
 
-
-Arbeitsgemeinschaft: Cluster Algebras. *Oberwolfach Rep.* 20 (2023), no. 4, pp. 2637–2680.
-
 ---
-
 
 ## [Cyclic Complexity of Some Infinite Words and Generalizations](https://math.colgate.edu/~integers/vol18a.html)
 
 C. Krawchuk, N. Rampersad, 2018.
 
-*Integers* 18A, Paper A12.
