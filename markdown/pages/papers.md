@@ -40,12 +40,11 @@ C. Krawchuk, 2023.
 
 Arbeitsgemeinschaft: Cluster Algebras. *Oberwolfach Rep.* 20 (2023), no. 4, pp. 2637–2680.
 
+---
+
+
 ## [Cyclic Complexity of Some Infinite Words and Generalizations](https://math.colgate.edu/~integers/vol18a.html)
 
 C. Krawchuk, N. Rampersad, 2018.
 
 *Integers* 18A, Paper A12.
-
-
-**I can't decide how to format these.**
-T. Duneau, 2026

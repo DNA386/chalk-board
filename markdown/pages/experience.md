@@ -43,7 +43,7 @@ C++, Rust, Python, MATLAB, CUDA, PyTorch, TensorFlow, TorchQuantum.
 Quantinuum Oxford Seminar.
 
 **Geometric deep learning in theory and in practice — Nov 2024**  
-Medical University of Vienna (invited).
+Medical University of Vienna.
 
 **Higher friezes and higher AR Theory — Feb 2024**  
 University of Edinburgh — Hodge Seminar (invited).
@@ -51,20 +51,8 @@ University of Edinburgh — Hodge Seminar (invited).
 **Techniques for constructing cluster structures on varieties — Oct 2023**  
 Oberwolfach — Arbeitsgemeinschaft: Cluster Algebras.
 
-**Higher friezes and higher AR Theory — May 2023**  
-University of Leeds — Algebra Seminar (invited).
-
-**A gluing operation for dimer quivers — Oct 2022**  
-University of Glasgow (invited).
-
 **Silting and cosilting objects in triangulated categories — July 2022**  
 ISM Discovery School: From Cluster Algebras to Representation Theory.
-
-**Boundary algebras arising from uniform Postnikov diagrams — Mar 2022**  
-Laboratoire de Mathématiques de Versailles (invited).
-
-**Boundary algebras arising from uniform Postnikov diagrams — Nov 2021**  
-Imperial College London — Junior London Algebra Colloquium (invited).
 
 **Decomposition numbers of Symmetric Groups — Sept 2021**  
 EPFL — Young Algebraist Conference.
@@ -90,7 +78,7 @@ EPFL — Young Algebraist Conference.
 **Fondation Mathématique Jacques Hadamard Scientific visibility award — 2022**  
 Competitive award supporting a two-month stay at a research institution in Paris.
 
-**NSERC Alexander Graham Bell Postgraduate Doctoral Scholarship — 2021**  
+**NSERC Alexander Graham Bell Postgraduate Doctoral Scholarship (declined) — 2021**  
 The highest doctoral scholarship offered by the Canadian research council.
 
 **Cambridge Trust Scholarship — 2020**  

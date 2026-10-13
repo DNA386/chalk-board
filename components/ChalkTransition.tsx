@@ -168,8 +168,8 @@ export function ChalkyPagination(props: {title: string, pageNames: string[], pag
     }
   }
 
-  return <div className="w-full h-full py-4 px-8 overflow-visible flex flex-col md:flex-row gap-8 items-start start">
-    <div ref={menuEl} className="flex shrink-0 flex-row md:flex-col md:w-32 md:mt-32 gap-8" onWheel={handleScrollMenu}>
+  return <div className="w-full h-full py-4 px-8 overflow-visible flex flex-col md:flex-row gap-8 items-start start" onWheel={handleScrollMenu}>
+    <div ref={menuEl} className="flex shrink-0 flex-row md:flex-col md:w-32 md:mt-32 gap-8" >
       {props.pageNames.map((pageName, i) => {
         return <div key={i} onClick={() => {changePage(i)}} className={i == page ? "underline text-violet-300" : ""}>
           {pageName}

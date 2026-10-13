@@ -79,7 +79,7 @@ export const SECTIONS: SectionDef[] = [
   {
     name: "papers",
     component: Papers,
-    classNames: "col-span-7 row-span-1 row-start-5",
+    classNames: "col-span-7 row-span-1 row-start-5 -mt-2",
     arrow: {
       curvature: 20,
       from: "heading",

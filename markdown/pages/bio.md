@@ -8,7 +8,7 @@ including cluster algebras and symmetric groups.
 Topics: categorifications, cluster structures on algebraic varieties, 
 and modular representation theory of symmetric groups.
 
-other: Convolution weights on 2-spaces,
+other: Convolution weights on ℓ2-spaces,
 combinatorics on words,
 algorithms and complexity.
 
