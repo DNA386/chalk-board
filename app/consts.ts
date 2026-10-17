@@ -1,7 +1,6 @@
-const DEV = process.env.DEV
 
-export const CHALKWORLD_URL: string = DEV ? "http://127.0.0.1:5173" : "https://dna386.github.io/chalk-world"
-export const CHALKBOARD_URL: string = DEV ? "http://localhost:3000" : "https://dna386.github.io/chalk-board"
+export const CHALKWORLD_URL: string = process.env.NEXT_PUBLIC_CHALKWORLD_URL
+export const CHALKBOARD_URL: string = process.env.NEXT_PUBLIC_CHALKBOARD_URL
 
 // Exported from the world app
 export const BOARD_NAVIGATION = [

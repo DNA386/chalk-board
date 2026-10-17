@@ -7,10 +7,12 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
+    "serve": "npx serve@latest out",
     "lint": "eslint",
     "showdown": "./node_modules/.bin/showdown makehtml"
   },
   "dependencies": {
+    "@next/env": "^16.4.2",
     "next": "16.1.4",
     "react": "19.2.3",
     "react-dom": "19.2.3",
