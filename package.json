@@ -10,7 +10,6 @@
     "lint": "eslint",
     "showdown": "./node_modules/.bin/showdown makehtml"
   },
-  "type": "module",
   "dependencies": {
     "next": "16.1.4",
     "react": "19.2.3",
