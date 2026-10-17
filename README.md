@@ -45,6 +45,7 @@ know where they are being hosted.
 To do so, create a file in the root of the project called `.env.local`, and paste the following config:
 ```
 NEXT_PUBLIC_CHALKWORLD_URL=http://127.0.0.1:5173
+NEXT_PUBLIC_CHALKWORLD_MESSAGE_URL=http://127.0.0.1:5173
 NEXT_PUBLIC_CHALKBOARD_URL=http://localhost:3000
 NEXT_PUBLIC_BASE_PATH=""
 ```
