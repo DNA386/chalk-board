@@ -5,4 +5,5 @@ module.exports = {
         ignoreBuildErrors: false,
         tsconfigPath: 'tsconfig.json',
     },
+    assetPrefix: '/chalk-board',
 }
