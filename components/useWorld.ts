@@ -1,8 +1,8 @@
 import React from "react";
-import {CHALKBOARD_URL, CHALKWORLD_URL, BOARD_NAVIGATION, WORLD_EXISTS_STATE} from "@/app/consts";
-import {useWindowListener} from "@/components/useEventListener";
-import {useEraseBoardThenNavigate} from "@/components/ChalkTransition";
-import {usePathname, useRouter} from "next/navigation";
+import { BOARD_NAVIGATION, WORLD_EXISTS_STATE, CHALKWORLD_MESSAGE_URL } from "@/app/consts";
+import { useWindowListener } from "@/components/useEventListener";
+import { useEraseBoardThenNavigate } from "@/components/ChalkTransition";
+import { usePathname } from "next/navigation";
 
 
 export type NavDetail = {
@@ -31,7 +31,7 @@ export const useWorld = () => {
 
 export const messageWorld = (message: {type: string} & any) => {
   if (window.parent != window) {
-    window.parent.postMessage(message, CHALKWORLD_URL)
+    window.parent.postMessage(message, CHALKWORLD_MESSAGE_URL)
   }
 }
 
@@ -43,8 +43,8 @@ export const useWorldNav = (scope: React.RefObject<any>) => {
 
   // Listen to messages from the world
   useWindowListener("message", async (event) => {
-    console.log("Received message", event.origin, event.data)
-    if (event.origin == CHALKWORLD_URL) {
+    // console.log("Received message", event.origin, event.data)
+    if (event.origin == CHALKWORLD_MESSAGE_URL) {
       if ((event.data.type === "navigate") && (event.data.destination !== pathname)) {
         await eraseBoardThenNavigate(scope, `/${WORLD_EXISTS_STATE}` + event.data.destination)
       }

@@ -1,5 +1,6 @@
 
 export const CHALKWORLD_URL: string = process.env.NEXT_PUBLIC_CHALKWORLD_URL ?? ""
+export const CHALKWORLD_MESSAGE_URL: string = process.env.NEXT_PUBLIC_CHALKWORLD_MESSAGE_URL ?? ""
 export const CHALKBOARD_URL: string = process.env.NEXT_PUBLIC_CHALKBOARD_URL ?? ""
 
 // Exported from the world app
