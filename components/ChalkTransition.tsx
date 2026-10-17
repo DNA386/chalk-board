@@ -12,7 +12,7 @@ export const ChalkBoardContext: React.Context<React.RefObject<HTMLElement | null
 export async function eraseBoard(scope: React.RefObject<HTMLElement | null>) {
   if (!scope.current) {return}
 
-  scope.current.style.mask = "URL('/img/mask_out_fast.gif') center no-repeat luminance"
+  scope.current.style.mask = `URL('${process.env.NEXT_PUBLIC_BASE_PATH}/img/mask_out_fast.gif') center no-repeat luminance`
   await new Promise(resolve => setTimeout(resolve, 1100));
   scope.current.style.opacity = "0"
 }

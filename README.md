@@ -39,6 +39,16 @@ The landing/home page is not generated via markdown compilation, and is found at
 
 
 ## Viewing the results
+In order to serve files locally, you must set up environment variables so the chalkboard and world
+know where they are being hosted.
+
+To do so, create a file in the root of the project called `.env.local`, and paste the following config:
+```
+NEXT_PUBLIC_CHALKWORLD_URL=http://127.0.0.1:5173
+NEXT_PUBLIC_CHALKBOARD_URL=http://localhost:3000
+NEXT_PUBLIC_BASE_PATH=""
+```
+*Do not* push this as it will break the deployment.
 
 Run the development server:
 ```bash
@@ -52,6 +62,10 @@ For the production version, build the app:
 ```bash
 npm run build
 ```
+Then you can serve the files locally:
+```bash
+npm run serve
+```
 
 ## Connecting to the world
 
@@ -64,4 +78,5 @@ You may set this up within that app as per the rules specified there.
 The interaction between the blackboard contents (this app) and the external world is handled via the
 [message](https://developer.mozilla.org/en-US/docs/Web/API/Window/message_event) system.
 
-To configure the connection, specify the relevant app urls in `app/consts.js`.
+To configure the connection, specify the relevant app urls in `.env.local` as defined above.
+The production config is stored in `.env`.
