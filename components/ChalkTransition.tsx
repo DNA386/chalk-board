@@ -102,11 +102,12 @@ export function ChalkEntrance(props: React.ComponentProps<"div">) {
 
 
 export function ChalkyScroll(props: React.ComponentProps<"div">) {
+  const basePath = process.env.NEXT_PUBLIC_BASE_PATH
   return <div className="w-full h-full py-4 px-8 overflow-auto" style={{
-    mask: `url('/img/chalk_mask_top.png') 0 0rem / auto 6em repeat-x exclude,
-           url('/img/black_mask.png') intersect, 
-           url('/img/chalk_mask_bottom.png') 0 calc(100% + 1px) / auto 6em repeat-x exclude, 
-           url('/img/black_mask.png')`
+    mask: `url('${basePath}/img/chalk_mask_top.png') 0 0rem / auto 6em repeat-x exclude,
+           url('${basePath}/img/black_mask.png') intersect, 
+           url('${basePath}/img/chalk_mask_bottom.png') 0 calc(100% + 1px) / auto 6em repeat-x exclude, 
+           url('${basePath}/img/black_mask.png')`
   }}>
     <div className="py-12">
       {props.children}
@@ -167,6 +168,7 @@ export function ChalkyPagination(props: {title: string, pageNames: string[], pag
       }
     }
   }
+  const basePath = process.env.NEXT_PUBLIC_BASE_PATH
 
   return <div className="w-full h-full py-4 px-8 overflow-visible flex flex-col md:flex-row gap-8 items-start start" onWheel={handleScrollMenu}>
     <div ref={menuEl} className="flex shrink-0 flex-row md:flex-col md:w-32 md:mt-32 gap-8" >
@@ -180,10 +182,10 @@ export function ChalkyPagination(props: {title: string, pageNames: string[], pag
       <Markdown ref={titleEl} html={props.title}></Markdown>
 
       <div className="overflow-auto py-18 pr-4 -my-12 w-full" style={{
-        mask: `url('/img/chalk_mask_top.png') 0 0rem / auto 6em repeat-x exclude,
-         url('/img/black_mask.png') intersect, 
-         url('/img/chalk_mask_bottom.png') 0 calc(100% + 1px) / auto 6em repeat-x exclude, 
-         url('/img/black_mask.png')`
+        mask: `url('${basePath}/img/chalk_mask_top.png') 0 0rem / auto 6em repeat-x exclude,
+         url('${basePath}/img/black_mask.png') intersect, 
+         url('${basePath}/img/chalk_mask_bottom.png') 0 calc(100% + 1px) / auto 6em repeat-x exclude, 
+         url('${basePath}/img/black_mask.png')`
       }}>
         <div ref={scope}>
           <Markdown html={props.pages[page]}></Markdown>

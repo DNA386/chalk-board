@@ -47,6 +47,7 @@ export default function ChalkWorldInterface({worldExists, children, ...props}: R
   }
 
   const baseUrl = worldExists ? WORLD_EXISTS_STATE : WORLD_NOT_EXISTS_STATE
+  const basePath = process.env.NEXT_PUBLIC_BASE_PATH
   return (
     <div className="font-sans absolute top-0 bottom-0 right-0 left-0 mask-(--chalk-mask) grid"
          {...props}
@@ -60,7 +61,7 @@ export default function ChalkWorldInterface({worldExists, children, ...props}: R
       <div className="col-start-1 col-end-4 row-1 relative -z-10">
         <div className="bg-background absolute w-full -bottom-12 top-0"
              style={{
-               mask: "url(/img/chalk_mask_top.png) repeat-x",
+               mask: `url(${basePath}/img/chalk_mask_top.png) repeat-x`,
                maskSize: "auto 100%",
              }}
         ></div>
@@ -68,7 +69,7 @@ export default function ChalkWorldInterface({worldExists, children, ...props}: R
       <div className="col-start-1 col-end-4 row-3 relative -z-10">
         <div className="bg-background absolute w-full -top-12 bottom-0"
              style={{
-               mask: "url(/img/chalk_mask_bottom.png) repeat-x",
+               mask: `url(${basePath}/img/chalk_mask_bottom.png) repeat-x`,
                maskSize: "auto 100%",
              }}
         ></div>
@@ -76,7 +77,7 @@ export default function ChalkWorldInterface({worldExists, children, ...props}: R
       <div className="col-1 row-start-1 row-end-4 relative -z-10">
         <div className="bg-background absolute h-full -right-8 left-0"
              style={{
-               mask: "url(/img/chalk_mask_left.png) repeat-y",
+               mask: `url(${basePath}/img/chalk_mask_left.png) repeat-y`,
                maskSize: "100% auto",
              }}
         ></div>
@@ -84,7 +85,7 @@ export default function ChalkWorldInterface({worldExists, children, ...props}: R
       <div className="col-3 row-start-1 row-end-4 relative -z-10">
         <div className="bg-background absolute h-full -left-8 right-0"
              style={{
-               mask: "url(/img/chalk_mask_right.png) repeat-y",
+               mask: `url(${basePath}/img/chalk_mask_right.png) repeat-y`,
                maskSize: "100% auto",
              }}
         ></div>

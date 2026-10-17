@@ -13,15 +13,15 @@
   --font-mono: "Consolas", monospace;
   --font-chalk: "qonqueror", "ChalkyThin", sans-serif;
   --font-link: "Caveat", sans-serif;
-  --chalk-mask: url(/img/chalk_texture.png);
-  --chalk-dash: url(/img/chalk_dash_center.png) 0 0 / auto var(--spacing) round;
+  --chalk-mask: url(../public/img/chalk_texture.png);
+  --chalk-dash: url(../public/img/chalk_dash_center.png) 0 0 / auto var(--spacing) round;
   --color-link: var(--color-indigo-400);
   --color-link-hover: var(--color-indigo-300);
 
   /*  Cursors  */
-  --cursor-chalk: url(/img/chalk_cursor_w.png), auto;
-  --cursor-text: url(/img/chalk_cursor_text.png), auto;
-  --cursor-link: url(/img/chalk_cursor_v.png), auto;
+  --cursor-chalk: url(../public/img/chalk_cursor_w.png), auto;
+  --cursor-text: url(../public/img/chalk_cursor_text.png), auto;
+  --cursor-link: url(../public/img/chalk_cursor_v.png), auto;
 
   /*  Large screens */
   --breakpoint-3xl: 120rem;
@@ -170,7 +170,7 @@ body {
     font-family: var(--font-link);
     color: var(--color-link);
     transition: color .3s;
-    cursor: url(/img/chalk_cursor_v.png), auto;
+    cursor: url(../public/img/chalk_cursor_v.png), auto;
   }
   a:hover {
     color: var(--color-link-hover);
