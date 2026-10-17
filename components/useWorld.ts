@@ -43,9 +43,8 @@ export const useWorldNav = (scope: React.RefObject<any>) => {
 
   // Listen to messages from the world
   useWindowListener("message", async (event) => {
-    if (event.origin !== CHALKBOARD_URL) {
-      // console.log("Received message", event.origin, event.data)
-
+    console.log("Received message", event.origin, event.data)
+    if (event.origin == CHALKWORLD_URL) {
       if ((event.data.type === "navigate") && (event.data.destination !== pathname)) {
         await eraseBoardThenNavigate(scope, `/${WORLD_EXISTS_STATE}` + event.data.destination)
       }
@@ -53,7 +52,6 @@ export const useWorldNav = (scope: React.RefObject<any>) => {
       if (event.data.type === "setup-nav") {
         setWorldNavigation(event.data.navigation)
       }
-
     }
   })
 
