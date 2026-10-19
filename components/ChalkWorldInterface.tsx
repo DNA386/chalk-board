@@ -1,6 +1,12 @@
 'use client'
 
-import {ChalkBoardContext, ChalkEntrance, ChalkLink, useWriteBoard} from "@/components/ChalkTransition"
+import {
+  ChalkBoardContext,
+  ChalkEntrance,
+  ChalkLink,
+  useAnimationQueue,
+  useWriteBoard
+} from "@/components/ChalkTransition"
 import React from "react"
 import { usePathname, useSearchParams } from "next/navigation";
 import { useWorldNav, messageWorld } from "@/components/useWorld";
@@ -14,7 +20,9 @@ export default function ChalkWorldInterface({worldExists, children, ...props}: R
   worldExists: boolean;
 } & React.ComponentProps<"div">>) {
   const scope = React.useRef<HTMLDivElement>(null)
-  const worldNavigation = useWorldNav(scope)
+  const { enqueue } = useAnimationQueue(scope)
+
+  const worldNavigation = useWorldNav(scope, enqueue)
 
   // Reset the board if the route changes
   const pathname = usePathname()
@@ -25,8 +33,8 @@ export default function ChalkWorldInterface({worldExists, children, ...props}: R
     messageWorld({type: "drawing-mode", active: drawingPage})
   }, [pathname, drawingPage])
 
-  useWriteBoard(scope, [])
-  useWriteBoard(scope, [pathname, searchParams])
+  useWriteBoard(scope, enqueue, [])
+  useWriteBoard(scope, enqueue, [pathname, searchParams])
 
   function handlePointerMove (event: React.PointerEvent) {
     // Have to convert to plain object for serialisation to work nicely
@@ -104,8 +112,8 @@ export default function ChalkWorldInterface({worldExists, children, ...props}: R
       </div>
 
       {/* Main content */}
-      <ChalkEntrance className={"w-full h-full p-4 flex justify-center relative" + (worldExists ? "" : " w-2xl xl:w-4xl 2xl:w-6xl 4xl:w-8xl")} ref={scope} key="main-board">
-        <ChalkBoardContext value={scope}>
+      <ChalkEntrance className={"w-full h-full p-4 flex justify-center relative" + (worldExists ? "" : " w-2xl xl:w-4xl 2xl:w-6xl 4xl:w-8xl")} ref={scope} key="main-board" id="main-board-animation">
+        <ChalkBoardContext value={{scope, enqueue}}>
           {children}
         </ChalkBoardContext>
       </ChalkEntrance>
@@ -144,8 +152,8 @@ export default function ChalkWorldInterface({worldExists, children, ...props}: R
         // Append navigation if no external world.
         <header className="row-1 col-start-1 col-end-4 relative p-2 flex justify-evenly items-center gap-8 h-16">
           <div className="h-1 bg-indigo-800 absolute bottom-0 left-4 right-4" style={{mask: "var(--chalk-dash)"}}></div>
-          <ChalkLink scope={scope} href={"/" + baseUrl}>Home</ChalkLink>
-          {PAGES.map((page) => {return <ChalkLink scope={scope} href={`/${baseUrl}/${page}`} key={page}>{page}</ChalkLink>})}
+          <ChalkLink scope={scope} enqueue={enqueue} href={"/" + baseUrl}>Home</ChalkLink>
+          {PAGES.map((page) => {return <ChalkLink scope={scope} enqueue={enqueue} href={`/${baseUrl}/${page}`} key={page}>{page}</ChalkLink>})}
         </header>
       }
     </div>

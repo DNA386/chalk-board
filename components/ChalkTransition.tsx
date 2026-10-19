@@ -7,52 +7,143 @@ import Markdown from "@/components/Markdown";
 import { ChalkArrow } from "@/components/Arrow";
 
 
-export const ChalkBoardContext: React.Context<React.RefObject<HTMLElement | null>> = createContext({} as React.RefObject<HTMLElement | null>)
+export const ChalkBoardContext: React.Context<{scope: React.RefObject<HTMLElement | null>, enqueue: EnqueueAnimation | undefined}> = createContext(
+  {scope: {} as React.RefObject<HTMLElement | null>, enqueue: undefined as EnqueueAnimation | undefined}
+)
 
-export async function eraseBoard(scope: React.RefObject<HTMLElement | null>) {
-  if (!scope.current) {return}
+export type AnimationSpec = { animation: () => Promise<any>, type: "erase" | "write", skip: boolean, resolve: (value: unknown) => void }
+export type EnqueueAnimation = (animation: AnimationSpec["animation"], type: AnimationSpec["type"], resolve: AnimationSpec["resolve"]) => void
 
-  scope.current.style.mask = `URL('${process.env.NEXT_PUBLIC_BASE_PATH}/img/mask_out_fast.gif') center no-repeat luminance`
-  await new Promise(resolve => setTimeout(resolve, 1100));
-  scope.current.style.opacity = "0"
-}
+export function useAnimationQueue (scope: React.RefObject<HTMLElement | null>) {
+  const queue = React.useRef<AnimationSpec[]>([])
+  const animationId = React.useRef<any>(undefined)
 
-export async function writeBoard(scope: React.RefObject<HTMLElement | null>, delay: number) {
-  if (!scope.current) {return}
-
-  scope.current.style.mask = ""
-  await new Promise(resolve => setTimeout(resolve, delay));
-  await new Promise((resolve) => {
-    let start: number
-    function fade(timestamp: number) {
-      if (!scope.current) {return resolve(null)}
-
-      if (start === undefined) {
-        start = timestamp;
-      }
-      const elapsed = timestamp - start;
-      const opacity = Math.min(Math.sin(elapsed * Math.PI / 2000), 1);
-      scope.current.style.opacity = `${opacity}`;
-
-      // Account for rounding errors
-      if (opacity < 1 - 1e-5) {
-        requestAnimationFrame(fade);
-      } else {
-        scope.current.style.opacity = "1"
-        resolve(1)
-      }
+  const enqueue: EnqueueAnimation = (animation: AnimationSpec["animation"], type: AnimationSpec["type"], resolve: AnimationSpec["resolve"]) => {
+    // Adjacent write and erase should cancel out
+    const prevAnimation = queue.current.length > 0 ? queue.current[queue.current.length - 1].type : undefined
+    const skip = prevAnimation === "write" && type === "erase"
+    if (skip) {
+      queue.current[queue.current.length - 1].skip = skip
     }
-    requestAnimationFrame(fade);
-  })
+    queue.current.push({animation, type, skip: skip || (prevAnimation == type), resolve })
+  }
+  const cancelAnimations = () => {
+    cancelAnimationFrame(animationId.current)
+  }
+
+  async function animate(timestamp: number) {
+    if (!scope.current) {return}
+
+    // Something is waiting to animate
+    if (queue.current.length > 0) {
+      const animation = queue.current.shift()
+      if (!animation!.skip) {
+        await animation!.animation()
+      }
+      animation!.resolve(true)
+    }
+
+    animationId.current = requestAnimationFrame(animate);
+  }
+
+  // Reset if scope changes
+  React.useEffect(() => {
+    cancelAnimations()
+    console.log("updating queue", scope.current?.id)
+    animationId.current = requestAnimationFrame(animate);
+  }, [scope.current?.id])
+
+  return { enqueue, cancelAnimations }
 }
+
+
+async function animateBoard(scope: React.RefObject<HTMLElement | null>, enqueue: EnqueueAnimation | undefined, type: AnimationSpec["type"], animation: AnimationSpec["animation"]) {
+  if (!scope.current) {return}
+
+  if (typeof enqueue == "undefined") {
+    await animation()
+  } else {
+    const resolution = new Promise(async (resolve) => {
+      enqueue(animation, type, resolve)
+    })
+    await resolution
+  }
+}
+
+
+export async function eraseBoard(scope: React.RefObject<HTMLElement | null>, enqueue: EnqueueAnimation | undefined) {
+  await animateBoard(
+    scope,
+    enqueue,
+    "erase",
+    () => new Promise((resolve) => {
+      let start: number
+      function erase(timestamp: number) {
+        if (!scope.current) {return resolve(null)}
+
+        if (start === undefined) {
+          start = timestamp;
+          scope.current.style.maskSize = "100% 100%";
+          scope.current.style.mask = `URL('${process.env.NEXT_PUBLIC_BASE_PATH}/img/mask_out_fast.gif') center no-repeat luminance`
+        }
+        const elapsed = timestamp - start;
+
+        // Account for rounding errors
+        if (elapsed < 1100) {
+          requestAnimationFrame(erase);
+        } else {
+          scope.current.style.opacity = "0"
+          resolve(0)
+        }
+      }
+      requestAnimationFrame(erase);
+    })
+  )
+}
+
+export async function writeBoard(scope: React.RefObject<HTMLElement | null>, enqueue: EnqueueAnimation, delay: number,) {
+  await animateBoard(
+    scope,
+    enqueue,
+    "write",
+    () => new Promise(async (resolve) => {
+      if (!scope.current) {return resolve(false)}
+
+      scope.current.style.mask = ""
+      await new Promise(resolve => setTimeout(resolve, delay));
+
+      let start: number
+      function fade(timestamp: number) {
+        if (!scope.current) {return resolve(null)}
+
+        if (start === undefined) {
+          start = timestamp;
+        }
+        const elapsed = timestamp - start;
+        const opacity = Math.min(Math.sin(elapsed * Math.PI / 2000), 1);
+        scope.current.style.opacity = `${opacity}`;
+
+        // Account for rounding errors
+        if (elapsed < 1000) {
+          requestAnimationFrame(fade);
+        } else {
+          scope.current.style.opacity = "1"
+          resolve(1)
+        }
+      }
+      requestAnimationFrame(fade);
+    })
+  )
+}
+
 
 export function useEraseBoardThenNavigate() {
   const router = useRouter()
   const pathname = usePathname();
 
-  const eraseBoardThenNavigate = async (scope: React.RefObject<HTMLElement | null>, url: string) => {
+  const eraseBoardThenNavigate = async (scope: React.RefObject<HTMLElement | null>, enqueue: EnqueueAnimation | undefined, url: string) => {
     if (pathname != url) {
-      await eraseBoard(scope)
+      await eraseBoard(scope, enqueue)
       router.push(url)
     }
   }
@@ -60,16 +151,17 @@ export function useEraseBoardThenNavigate() {
 }
 
 
-export function useWriteBoard(scope: React.RefObject<HTMLElement | null>, deps: React.DependencyList, delay?: number) {
+export function useWriteBoard(scope: React.RefObject<HTMLElement | null>, enqueue: EnqueueAnimation, deps: React.DependencyList, delay?: number) {
   React.useEffect(() => {
-    writeBoard(scope, delay ?? 0)
+    writeBoard(scope, enqueue, delay ?? 0)
   }, deps)
 }
 
 
 export function ChalkLink(
-  {scope, isInternalNav = true, children, ...props}: {
+  {scope, enqueue, isInternalNav = true, children, ...props}: {
     scope: React.RefObject<HTMLElement | null>,
+    enqueue: EnqueueAnimation | undefined,
     children: React.ReactNode
     isInternalNav?: boolean,
   } & LinkProps,
@@ -87,7 +179,7 @@ export function ChalkLink(
         // Only executes during SPA navigation
         if (isInternalNav) {
           e.preventDefault()
-          await eraseBoardThenNavigate(scope, props.href as string)
+          await eraseBoardThenNavigate(scope, enqueue, props.href as string)
         }
       }}>{children}</Link>
     </div>
@@ -116,10 +208,11 @@ export function ChalkyScroll(props: React.ComponentProps<"div">) {
 }
 
 
-export function ChalkyPagination(props: {title: string, pageNames: string[], pages: string[]}) {
+export function ChalkyPagination(props: {title: string, pageNames: string[], pages: string[], id?: string}) {
   const titleEl = React.useRef<HTMLDivElement>(null)
   const menuEl = React.useRef<HTMLDivElement>(null)
   const scope = React.useRef<HTMLDivElement>(null)
+  const { enqueue } = useAnimationQueue(scope)
 
   const [page, setPage] = useState(0);
   const scrollBase = React.useRef(0)
@@ -132,9 +225,9 @@ export function ChalkyPagination(props: {title: string, pageNames: string[], pag
 
   const changePage = async function (newPage: number) {
     if (newPage !== page) {
-      await eraseBoard(scope)
+      await eraseBoard(scope, enqueue)
       setPage(newPage);
-      await writeBoard(scope, 1)
+      await writeBoard(scope, enqueue, 1)
     }
   }
   React.useEffect(() => {
@@ -187,7 +280,7 @@ export function ChalkyPagination(props: {title: string, pageNames: string[], pag
          url('${basePath}/img/chalk_mask_bottom.png') 0 calc(100% + 1px) / auto 6em repeat-x exclude, 
          url('${basePath}/img/black_mask.png')`
       }}>
-        <div ref={scope}>
+        <div id={(props.id ?? "page") + "-animation"} ref={scope}>
           <Markdown html={props.pages[page]}></Markdown>
         </div>
       </div>

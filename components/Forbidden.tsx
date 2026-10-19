@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 
 
 export default function Forbidden({baseUrl}: {baseUrl: string}) {
-  const chalkboard = useContext(ChalkBoardContext);
+  const { scope: chalkboard, enqueue } = useContext(ChalkBoardContext);
 
   return (
     <div className="w-full h-full relative flex justify-center font-sans mask-(--chalk-mask)">
@@ -19,7 +19,7 @@ export default function Forbidden({baseUrl}: {baseUrl: string}) {
         <div className="text-zinc-300">Oops!</div>
         <div className="text-zinc-300">You aren't meant to be here...</div>
         <img className="justify-self-center" src={process.env.NEXT_PUBLIC_BASE_PATH + "/img/403.png"} alt="A regular bunch of bananas: 403" />
-        <ChalkLink scope={chalkboard} href={baseUrl}>Back to Home</ChalkLink>
+        <ChalkLink scope={chalkboard} enqueue={enqueue} href={baseUrl}>Back to Home</ChalkLink>
       </main>
     </div>
   )

@@ -1,7 +1,7 @@
 import React from "react";
 import { BOARD_NAVIGATION, WORLD_EXISTS_STATE, CHALKWORLD_MESSAGE_URL } from "@/app/consts";
 import { useWindowListener } from "@/components/useEventListener";
-import { useEraseBoardThenNavigate } from "@/components/ChalkTransition";
+import {EnqueueAnimation, useEraseBoardThenNavigate} from "@/components/ChalkTransition";
 import { usePathname } from "next/navigation";
 
 
@@ -35,7 +35,7 @@ export const messageWorld = (message: {type: string} & any) => {
   }
 }
 
-export const useWorldNav = (scope: React.RefObject<any>) => {
+export const useWorldNav = (scope: React.RefObject<any>, enqueue: EnqueueAnimation) => {
   const [worldNavigation, setWorldNavigation] = React.useState(BOARD_NAVIGATION as NavDetail[])
   const pathname = usePathname()
 
@@ -46,7 +46,7 @@ export const useWorldNav = (scope: React.RefObject<any>) => {
     // console.log("Received message", event.origin, event.data)
     if (event.origin == CHALKWORLD_MESSAGE_URL) {
       if ((event.data.type === "navigate") && (event.data.destination !== pathname)) {
-        await eraseBoardThenNavigate(scope, `/${WORLD_EXISTS_STATE}` + event.data.destination)
+        await eraseBoardThenNavigate(scope, enqueue, `/${WORLD_EXISTS_STATE}` + event.data.destination)
       }
 
       if (event.data.type === "setup-nav") {

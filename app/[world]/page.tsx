@@ -12,14 +12,14 @@ export default function Home({ params }:  {
 }) {
   const worldState =  React.use(params).world
   const worldExists = worldState == WORLD_EXISTS_STATE
-  const chalkboard = useContext(ChalkBoardContext);
+  const { scope: chalkboard, enqueue } = useContext(ChalkBoardContext);
   const eraseBoardThenNavigate = useEraseBoardThenNavigate()
 
   const handleClick = () => {
     if (worldExists) {
-      eraseBoardThenNavigate(chalkboard, `/${worldState}/mindmap`)
+      eraseBoardThenNavigate(chalkboard, enqueue, `/${worldState}/mindmap`)
     } else {
-      eraseBoardThenNavigate(chalkboard, `/${worldState}/${PAGES[0]}`)
+      eraseBoardThenNavigate(chalkboard, enqueue, `/${worldState}/${PAGES[0]}`)
     }
   }
 
@@ -42,7 +42,7 @@ export default function Home({ params }:  {
             <div className="text-center mt-8">
               Note: this site is best experienced
             </div>
-            <ChalkLink scope={chalkboard} href={CHALKWORLD_URL} isInternalNav={false}>in 3D</ChalkLink>
+            <ChalkLink scope={chalkboard} enqueue={enqueue} href={CHALKWORLD_URL} isInternalNav={false}>in 3D</ChalkLink>
           </>}
         </div>
       </main>

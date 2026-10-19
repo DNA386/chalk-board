@@ -42,7 +42,7 @@ export default function Mindmap() {
   }
 
   return (
-    <div ref={mindmapCallback} className={`w-full h-full relative grid grid-flow-row ${MINDMAP_GRID.rows} ${MINDMAP_GRID.columns} gap-4 justify-center`}>
+    <div ref={mindmapCallback} className={`w-full h-full relative grid grid-flow-row ${MINDMAP_GRID.rows} ${MINDMAP_GRID.columns} gap-4 px-8 justify-center`}>
       {SECTIONS.map((section, i) => {
         return <MindmapSection key={section.name} index={i} details={section} mindmap={mindmap} />
       })}

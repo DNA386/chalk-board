@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 }
 
 export default function NotFound({baseUrl} : {baseUrl: string}) {
-  const chalkboard = useContext(ChalkBoardContext);
+  const { scope: chalkboard, enqueue } = useContext(ChalkBoardContext);
 
   return (
     <div className="w-full h-full relative flex justify-center font-sans mask-(--chalk-mask)">
@@ -18,7 +18,7 @@ export default function NotFound({baseUrl} : {baseUrl: string}) {
         <div className="text-violet-300">Much like the banana,</div>
         <div className="text-violet-300">this page seems to be missing...</div>
         <img className="justify-self-center" src={process.env.NEXT_PUBLIC_BASE_PATH + "/img/404.png"} alt="Ghost banana: 404" />
-        <ChalkLink scope={chalkboard} href={baseUrl}>Back to Home</ChalkLink>
+        <ChalkLink scope={chalkboard} enqueue={enqueue} href={baseUrl}>Back to Home</ChalkLink>
       </main>
     </div>
   )

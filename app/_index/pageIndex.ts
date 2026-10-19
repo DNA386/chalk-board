@@ -71,7 +71,7 @@ export const SECTIONS: SectionDef[] = [
   {
     name: "experience",
     component: Experience,
-    classNames: "col-span-3 row-span-2 row-start-5",
+    classNames: "col-span-3 row-span-2 row-start-5 -mt-4",
     arrow: {
       curvature: 50,
       from: "heading",
@@ -80,7 +80,7 @@ export const SECTIONS: SectionDef[] = [
   {
     name: "papers",
     component: Papers,
-    classNames: "col-span-7 row-span-1 row-start-5 -mt-2",
+    classNames: "col-span-7 row-span-1 row-start-5 -mt-4",
     arrow: {
       curvature: 20,
       from: "heading",
