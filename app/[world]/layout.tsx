@@ -5,7 +5,6 @@ import {WORLD_EXISTS_STATE, WORLD_STATES} from "@/app/consts";
 
 
 // Only allow world or web modes
-export const ensureStatic = 'navigation'
 export const dynamicParams = false
 
 export async function generateStaticParams() {

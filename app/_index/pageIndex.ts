@@ -12,6 +12,7 @@ export const PAGES = [
   'bio',
   'papers',
   'experience',
+  'draw',
 ]
 
 export const MINDMAP_GRID = {
@@ -28,7 +29,7 @@ export const SECTIONS: SectionDef[] = [
   {
     name: "heading",
     component: MindmapHeading,
-    classNames: "col-start-3 col-span-4 row-3 text-center mt-8",
+    classNames: "col-start-3 col-span-4 row-3 text-center -mt-8",
     arrow: undefined,
   },
   {
