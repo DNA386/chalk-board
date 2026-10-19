@@ -19,6 +19,11 @@ export default function ChalkWorldInterface({worldExists, children, ...props}: R
   // Reset the board if the route changes
   const pathname = usePathname()
   const searchParams = useSearchParams()
+  const drawingPage = /\/draw(?:\.html)?\/?$/.test(pathname ?? "")
+
+  React.useEffect(() => {
+    messageWorld({type: "drawing-mode", active: drawingPage})
+  }, [pathname, drawingPage])
 
   useWriteBoard(scope, [])
   useWriteBoard(scope, [pathname, searchParams])
@@ -108,7 +113,7 @@ export default function ChalkWorldInterface({worldExists, children, ...props}: R
       { worldExists ?
         // External navigation (when world is present)
         worldNavigation.map((nav, i) => {
-          const heightJitter = Math.sin(i * Math.PI / 2)
+          const heightJitter = nav.name === "Draw" ? 0.5 : Math.sin(i * Math.PI / 2)
           const textPos = {
             bottom: `calc(${nav.pointTarget.y}px + 6 * (1 + ${heightJitter}) * var(--spacing))`,
             left: `calc(${nav.pointTarget.x}px - (4 + 4 * ${heightJitter}) * var(--spacing))`,

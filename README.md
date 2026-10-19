@@ -38,6 +38,11 @@ This file contains some consts that you can/should modify:
 The landing/home page is not generated via markdown compilation, and is found at `app/page.tsx`.
 
 
+#### Drawing page
+The drawing page is found at `app/[world]/draw/page.tsx`, with the drawing tools in `components/drawing`.
+It is accessed via the chalk to the right of the eraser. Drawings are saved in the current browser tab.
+
+
 ## Viewing the results
 In order to serve files locally, you must set up environment variables so the chalkboard and world
 know where they are being hosted.

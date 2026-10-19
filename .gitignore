@@ -39,3 +39,13 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+/app/\[world\]/bio/page.tsx
+/app/\[world\]/experience/page.tsx
+/app/\[world\]/papers/page.tsx
+/app/\[world\]/mindmap/experience.tsx
+/app/\[world\]/mindmap/math.tsx
+/app/\[world\]/mindmap/mathTopics.tsx
+/app/\[world\]/mindmap/papers.tsx
+/app/\[world\]/mindmap/quantum.tsx
+/app/\[world\]/mindmap/quantumProjects.tsx
