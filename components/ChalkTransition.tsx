@@ -49,7 +49,6 @@ export function useAnimationQueue (scope: React.RefObject<HTMLElement | null>) {
   // Reset if scope changes
   React.useEffect(() => {
     cancelAnimations()
-    console.log("updating queue", scope.current?.id)
     animationId.current = requestAnimationFrame(animate);
   }, [scope.current?.id])
 
@@ -142,7 +141,7 @@ export function useEraseBoardThenNavigate() {
   const pathname = usePathname();
 
   const eraseBoardThenNavigate = async (scope: React.RefObject<HTMLElement | null>, enqueue: EnqueueAnimation | undefined, url: string) => {
-    if (pathname != url) {
+    if (pathname != url.replace(/\/$/, "")) {
       await eraseBoard(scope, enqueue)
       router.push(url)
     }
@@ -179,6 +178,7 @@ export function ChalkLink(
         // Only executes during SPA navigation
         if (isInternalNav) {
           e.preventDefault()
+
           await eraseBoardThenNavigate(scope, enqueue, props.href as string)
         }
       }}>{children}</Link>
